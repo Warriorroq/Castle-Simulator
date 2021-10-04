@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
-using UnitSpace.Interfaces;
+using UnitSpace.Skills;
 namespace UnitSpace
 {
     public class Unit : MonoBehaviour
@@ -8,6 +9,7 @@ namespace UnitSpace
         public UnitAttributes attributes;
         public UnitSkills skills;
         public UnitOrderUser unitOrders;
+        public NavMeshAgent navMeshAgent;
         public UnityEvent<IteractData> giveIteractData;
         public UnityEvent<IteractData> takeIteractData;
         private void Awake()
@@ -15,6 +17,12 @@ namespace UnitSpace
             attributes = new UnitAttributes(this);
             skills = new UnitSkills(this);
             TryGetComponent(out unitOrders);
+            TryGetComponent(out navMeshAgent);
+            skills.AddSkill(new Dash());
+        }
+        private void Update()
+        {
+            skills.UpdateSkills(Time.deltaTime);
         }
     }
 }
