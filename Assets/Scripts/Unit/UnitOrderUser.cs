@@ -29,7 +29,10 @@ namespace UnitSpace
             if (_currentOrder.GetState() != IOrder.OrderState.Finished)
                 _currentOrder.UpdateOrder();
             else
+            {
                 _currentOrder = null;
+                LevelingUpByAttributes.GetInstance().CheckOnLevelUp(_owner);
+            }
         }
         private void DequeueNextOrder()
         {

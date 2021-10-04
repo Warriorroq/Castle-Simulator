@@ -17,8 +17,11 @@ namespace UnitSpace
                 if (item.GetType() == typeof(T))
                     return item as T;
             var newAttribute = Attribute.GetClearAttribute<T>();
+            newAttribute.SetStartParams();
             _attributes.Add(newAttribute);
             return newAttribute;
         }
+        public List<Attribute> GetAttributes()
+            => _attributes;
     }
 }

@@ -22,5 +22,16 @@ namespace UnitSpace
             foreach (var item in _skills)
                 item.Dispose();
         }
+        public void ActivateSkill<T>() where T : ISkillable
+        {
+            foreach (var item in _skills)
+                if (item.GetType() == typeof(T))
+                    item.Use();
+        }
+        public void UpdateSkills(float time)
+        {
+            foreach (var item in _skills)
+                item.Update(time);
+        }
     }
 }
