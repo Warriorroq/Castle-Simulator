@@ -10,5 +10,6 @@ namespace UnitSpace.Interfaces
 
         public void Update(float time);
         public abstract void IteractWith(Unit unit);
+        public abstract void UseBySkill(IOrder skill);
     }
 }

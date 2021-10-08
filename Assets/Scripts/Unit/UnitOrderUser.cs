@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnitSpace.Interfaces;
+using UnityEngine.Events;
 namespace UnitSpace
 {
     public class UnitOrderUser : MonoBehaviour
     {
+        public UnityEvent<IOrder> doOrder;
         private Queue<IOrder> _orders;
         private IOrder _currentOrder;
         private Unit _owner;
@@ -12,6 +14,8 @@ namespace UnitSpace
             => _orders.Clear();
         public void AddOrder(IOrder order)
             => _orders.Enqueue(order);
+        public void StopOrder()
+            => _currentOrder = null;
         private void Awake()
         {
             _orders = new Queue<IOrder>();
@@ -44,6 +48,7 @@ namespace UnitSpace
             _currentOrder = order;
             _currentOrder.SetUnitOwner(_owner);
             _currentOrder.StartOrder();
+            doOrder?.Invoke(order);
         }
     }
 }

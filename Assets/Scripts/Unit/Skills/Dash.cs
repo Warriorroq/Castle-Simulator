@@ -2,7 +2,7 @@ using UnityEngine;
 using UnitSpace.Interfaces;
 using UnitSpace.Attributes;
 using System.Collections;
-
+using UnitSpace.Orders;
 namespace UnitSpace.Skills
 {
     public class Dash : ISkillable
@@ -12,37 +12,51 @@ namespace UnitSpace.Skills
         private float _reloadTimer;
         private Speed _speed;
         private float _speedAfterChanges;
+        private Unit _owner;
         public void SetUnitOwner(Unit owner)
         {
+            _owner = owner;
             _speed = owner.attributes.GetAttribute<Speed>();
+            _owner.unitOrders.doOrder.AddListener(UseBySkill);
             _state = ISkillable.skillState.ready;
         }
         public void IteractWith(Unit unit){}
         public void Use()
         {
-            if(_state is ISkillable.skillState.ready)
+            if(_state == ISkillable.skillState.ready)
             {
                 _state = ISkillable.skillState.reloading;
                 _reloadTimer = 0;
                 _startSpeed = _speed.value;
                 _speed.value = _startSpeed * 2;
                 _speedAfterChanges = _speed.value;
-                Debug.Log("Dash is used");
+                _owner.navMeshAgent.speed = _speed.value;
             }
         }
         public void Update(float time)
         {
-            if (_state is ISkillable.skillState.reloading)
-                _reloadTimer += time;
-            if (_reloadTimer > 3)
+            if (_state == ISkillable.skillState.reloading)
             {
-                _speed.value = _speed.value - _speedAfterChanges + _startSpeed;
-                _speedAfterChanges = 0;
-                _startSpeed = 0;
+                _reloadTimer += time;
+                if (_reloadTimer > 3)
+                {
+                    _speed.value = _speed.value - _speedAfterChanges + _startSpeed;
+                    _speedAfterChanges = 0;
+                    _startSpeed = 0;
+                    _owner.navMeshAgent.speed = _speed.value;
+                }
+                if (_reloadTimer >= 10)
+                    _state = ISkillable.skillState.ready;                
             }
-            if(_reloadTimer >= 10)
-                _state = ISkillable.skillState.ready;
         }
-        public void Dispose(){}
+        public void Dispose(){
+            _owner.unitOrders.doOrder.RemoveListener(UseBySkill);
+        }
+
+        public void UseBySkill(IOrder skill)
+        {
+            if (skill is MoveToOrder)
+                Use();
+        }
     }
 }
