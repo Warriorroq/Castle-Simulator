@@ -16,5 +16,9 @@ namespace UnitSpace.Attributes
             value = 10;
             currentHp = value;
         }
+        public override string ToString()
+        {
+            return $"Health: | level {_level} | value {value}";
+        }
     }
 }

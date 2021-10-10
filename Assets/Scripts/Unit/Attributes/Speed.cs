@@ -10,6 +10,8 @@ namespace UnitSpace.Attributes
         public override void SetStartParams()        
             => value = 2;
         public override string ToString()
-            => $"Speed is: {value} speed exp is {xpProgressValue}";
+        {
+            return $"Speed: | level {_level} | value {value}";
+        }
     }
 }

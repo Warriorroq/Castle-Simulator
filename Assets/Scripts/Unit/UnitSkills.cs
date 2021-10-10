@@ -5,33 +5,40 @@ namespace UnitSpace
 {
     public class UnitSkills : IDisposable
     {
-        private List<ISkillable> _skills;
+        public List<ISkillable> skills;
         private Unit _owner;
         public UnitSkills(Unit owner)
         {
             _owner = owner;
-            _skills = new List<ISkillable>();
+            skills = new List<ISkillable>();
         }
         public void AddSkill(ISkillable skill)
         {
             skill.SetUnitOwner(_owner);
-            _skills.Add(skill);
+            skills.Add(skill);
         }
         public void Dispose()
         {
-            foreach (var item in _skills)
+            foreach (var item in skills)
                 item.Dispose();
         }
         public void ActivateSkill<T>() where T : ISkillable
         {
-            foreach (var item in _skills)
+            foreach (var item in skills)
                 if (item.GetType() == typeof(T))
                     item.Use();
         }
         public void UpdateSkills(float time)
         {
-            foreach (var item in _skills)
+            foreach (var item in skills)
                 item.Update(time);
+        }
+        public override string ToString()
+        {
+            var text = string.Empty;
+            foreach (var skill in skills)
+                text += skill.ToString() + "\n";
+            return text;
         }
     }
 }

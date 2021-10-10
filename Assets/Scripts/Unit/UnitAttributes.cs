@@ -23,5 +23,12 @@ namespace UnitSpace
         }
         public List<Attribute> GetAttributes()
             => _attributes;
+        public override string ToString()
+        {
+            var text = string.Empty;
+            foreach (var attribute in _attributes)
+                text += attribute.ToString() + "\n";
+            return text;
+        }
     }
 }

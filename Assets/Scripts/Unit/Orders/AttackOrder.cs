@@ -34,7 +34,6 @@ namespace UnitSpace.Orders
         {
             _state = IOrder.OrderState.InProgress;
         }
-
         public void UpdateOrder()
         {
             if (!_target)

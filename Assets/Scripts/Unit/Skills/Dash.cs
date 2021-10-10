@@ -17,7 +17,6 @@ namespace UnitSpace.Skills
         {
             _owner = owner;
             _speed = owner.attributes.GetAttribute<Speed>();
-            _owner.unitOrders.doOrder.AddListener(UseBySkill);
             _state = ISkillable.skillState.ready;
         }
         public void IteractWith(Unit unit){}
@@ -49,14 +48,11 @@ namespace UnitSpace.Skills
                     _state = ISkillable.skillState.ready;                
             }
         }
-        public void Dispose(){
-            _owner.unitOrders.doOrder.RemoveListener(UseBySkill);
-        }
-
-        public void UseBySkill(IOrder skill)
+        public void Dispose(){}
+        public override string ToString()
         {
-            if (skill is MoveToOrder)
-                Use();
+            return $"Dash - increases speed by 100%";
         }
+        public void UseBySkill(IOrder skill){}
     }
 }
