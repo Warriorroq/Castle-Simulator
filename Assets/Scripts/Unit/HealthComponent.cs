@@ -6,7 +6,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class HealthComponent : MonoBehaviour
-{
+{    
+    public UnityEvent<IteractData> giveIteractData;
+    public UnityEvent<IteractData> takeIteractData;
+    public UnityEvent destroyUnit;
+    private Unit _owner;
+    private Health _health;
     private float Health
     {
         get
@@ -18,11 +23,6 @@ public class HealthComponent : MonoBehaviour
             _health.currentHp = value;
         }
     }
-    private Unit _owner;
-    private Health _health;
-    public UnityEvent<IteractData> giveIteractData;
-    public UnityEvent<IteractData> takeIteractData;
-    public UnityEvent destroyUnit;
     public void TakeDamage(IteractData data)
     {
         takeIteractData?.Invoke(data);

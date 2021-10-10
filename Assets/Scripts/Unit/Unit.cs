@@ -13,6 +13,7 @@ namespace UnitSpace
         public UnitOrderUser unitOrders;
         public NavMeshAgent navMeshAgent;
         public HealthComponent healthComponent;
+        public UnitSelector unitSelector;
         private void Awake()
         {
             attributes = new UnitAttributes(this);
@@ -20,7 +21,15 @@ namespace UnitSpace
             TryGetComponent(out unitOrders);
             TryGetComponent(out healthComponent);
             TryGetComponent(out navMeshAgent);
-            skills.AddSkill(new Dash());
+            unitSelector = GetComponentInChildren<UnitSelector>();
+        }
+        private void Start()
+        {
+            var rand = Random.Range(1, 9);
+            for(int i = 0; i< rand;i++)
+            {
+                skills.AddSkill(new Dash());
+            }
         }
         private void Update()
         {

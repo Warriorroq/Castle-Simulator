@@ -15,7 +15,7 @@ namespace UnitSpace
         public void AddOrder(IOrder order)
             => _orders.Enqueue(order);
         public void StopOrder()
-            => _currentOrder = null;
+            =>_currentOrder.EndOrder();
         private void Awake()
         {
             _orders = new Queue<IOrder>();

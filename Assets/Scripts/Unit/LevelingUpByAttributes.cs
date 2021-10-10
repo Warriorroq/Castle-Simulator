@@ -20,7 +20,7 @@ namespace UnitSpace
                 LevelUpAttributesIn(unit);
             }
         }
-        private void CountUnitTotalExp(Unit unit, out float currentExp)
+        public void CountUnitTotalExp(Unit unit, out float currentExp)
         {
             currentExp = 0;
             foreach(var attribute in unit.attributes.GetAttributes())
