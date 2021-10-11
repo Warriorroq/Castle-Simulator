@@ -1,5 +1,3 @@
-using UnitSpace;
-using UnitSpace.Attributes;
 namespace UnitSpace.Attributes
 {
     public class Health : Attribute

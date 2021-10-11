@@ -18,6 +18,8 @@ public class OrderGiver : MonoBehaviour
     }
     public void FollowUnit()
         =>_takedUnit?.unitOrders.AddOrder(new FollowToOrder(_lastTakedUnit));
+    public void PatrolUnit()
+        => _takedUnit?.unitOrders.AddOrder(new ModerateOrder(_takedUnit.transform.position));
     public void AttackUnit()
     {
         _takedUnit?.unitOrders.AddOrder(new FollowToOrder(_lastTakedUnit));

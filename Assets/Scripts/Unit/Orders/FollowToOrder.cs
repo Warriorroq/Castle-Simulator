@@ -25,10 +25,13 @@ namespace UnitSpace.Orders
             => _state;
         public void SetUnitOwner(Unit owner)
             =>_owner = owner;
-        public void SetTarget(Unit target)
-            => _target = target;
         public void StartOrder()
         {
+            if (_target is null)
+            {
+                EndOrder();
+                return;
+            }
             _state = IOrder.OrderState.InProgress;
             _owner.navMeshAgent.SetDestination(_target.transform.position);
             _ownerSpeed = _owner.attributes.GetAttribute<Speed>();

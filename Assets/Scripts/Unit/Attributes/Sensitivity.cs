@@ -1,6 +1,6 @@
 namespace UnitSpace.Attributes
 {
-    public class Strenght : Attribute
+    public class Sensitivity : Attribute
     {
         public override void LevelUpThis(float value)
         {
@@ -9,11 +9,9 @@ namespace UnitSpace.Attributes
         }
         public override void SetStartParams()
         {
-            value = 2;
+            value = 5;
         }
         public override string ToString()
-        {
-            return $"Strenght: | level {_level} | value {value}";
-        }
+            => $"Sensitivity: | level {_level} | value {value}";
     }
 }
