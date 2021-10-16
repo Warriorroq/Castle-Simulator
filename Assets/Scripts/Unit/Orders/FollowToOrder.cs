@@ -34,7 +34,7 @@ namespace UnitSpace.Orders
             }
             _state = IOrder.OrderState.InProgress;
             _owner.navMeshAgent.SetDestination(_target.transform.position);
-            _ownerSpeed = _owner.attributes.GetAttribute<Speed>();
+            _ownerSpeed = _owner.attributes.GetOrCreateAttribute<Speed>();
             _owner.navMeshAgent.speed = _ownerSpeed.value;
             _owner.navMeshAgent.isStopped = false;
         }

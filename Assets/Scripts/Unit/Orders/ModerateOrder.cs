@@ -27,9 +27,9 @@ namespace UnitSpace.Orders
         public void SetUnitOwner(Unit owner)
         {
             _owner = owner;
-            _sensitivity = _owner.attributes.GetAttribute<Sensitivity>();
-            _strenght = _owner.attributes.GetAttribute<Strenght>();
-            _speed = _owner.attributes.GetAttribute<Speed>();
+            _sensitivity = _owner.attributes.GetOrCreateAttribute<Sensitivity>();
+            _strenght = _owner.attributes.GetOrCreateAttribute<Strenght>();
+            _speed = _owner.attributes.GetOrCreateAttribute<Speed>();
             _state = IOrder.OrderState.Ready;
         }
 

@@ -31,7 +31,7 @@ namespace UnitSpace.Orders
 
         public void StartOrder()
         {
-            _ownerSpeed = _owner.attributes.GetAttribute<Speed>();
+            _ownerSpeed = _owner.attributes.GetOrCreateAttribute<Speed>();
             _owner.navMeshAgent.speed = _ownerSpeed.value;
             _owner.navMeshAgent.SetDestination(_target);
             _owner.navMeshAgent.isStopped = false;

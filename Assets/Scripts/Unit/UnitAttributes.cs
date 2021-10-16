@@ -11,13 +11,12 @@ namespace UnitSpace
             _owner = owner;
             _attributes = new List<Attribute>();
         }
-        public T GetAttribute<T>() where T : Attribute
+        public T GetOrCreateAttribute<T>() where T : Attribute, new()
         {
             foreach (var item in _attributes)
                 if (item.GetType() == typeof(T))
                     return item as T;
-            var newAttribute = Attribute.GetClearAttribute<T>();
-            newAttribute.SetStartParams();
+            var newAttribute = new T();
             _attributes.Add(newAttribute);
             return newAttribute;
         }

@@ -28,7 +28,7 @@ namespace UnitSpace.Orders
         {
             _owner = owner;
             _state = IOrder.OrderState.Ready;
-            _strenght = owner.attributes.GetAttribute<Strenght>();
+            _strenght = owner.attributes.GetOrCreateAttribute<Strenght>();
         }
         public void StartOrder()
         {

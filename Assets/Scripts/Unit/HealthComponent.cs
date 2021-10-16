@@ -34,7 +34,7 @@ public class HealthComponent : MonoBehaviour
     }
     private void Start()
     {
-        _health = _owner.attributes.GetAttribute<Health>();
+        _health = _owner.attributes.GetOrCreateAttribute<Health>();
     }
     private void DestroyThisUnit()
     {

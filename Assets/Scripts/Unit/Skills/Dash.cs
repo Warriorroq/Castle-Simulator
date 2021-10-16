@@ -13,7 +13,7 @@ namespace UnitSpace.Skills
         public void SetUnitOwner(Unit owner)
         {
             _owner = owner;
-            _speed = owner.attributes.GetAttribute<Speed>();
+            _speed = owner.attributes.GetOrCreateAttribute<Speed>();
             _state = ISkillable.skillState.ready;
         }
         public void IteractWith(Unit unit){}

@@ -1,4 +1,3 @@
-using System.Runtime.Serialization;
 namespace UnitSpace.Attributes
 {
     public abstract class Attribute
@@ -12,9 +11,6 @@ namespace UnitSpace.Attributes
             this.value = value;
             this.xpProgressValue = xpProgressValue;
         }
-        public abstract void SetStartParams();
-        public static T GetClearAttribute<T>() where T : Attribute
-            => FormatterServices.GetUninitializedObject(typeof(T)) as T;
         public abstract void LevelUpThis(float value);
     }
 }
