@@ -30,6 +30,7 @@ namespace UnitSpace
             {
                 skills.AddSkill(new Dash());
             }
+            skills.AddSkill(new CreateTimeWall());
         }
         private void Update()
         {
