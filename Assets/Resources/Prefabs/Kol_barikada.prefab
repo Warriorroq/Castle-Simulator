@@ -584,6 +584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7302637674623714118}
   - component: {fileID: 7931963652891253245}
+  - component: {fileID: 6013767190142561224}
   m_Layer: 0
   m_Name: Kol_barikada
   m_TagString: Untagged
@@ -625,3 +626,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5631027, y: 4.208474, z: 4.4347124}
   m_Center: {x: 0.39077568, y: 2.077281, z: 0.38049173}
+--- !u!208 &6013767190142561224
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7931963652891253244}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.2815515, y: 2.104237, z: 2.217356}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.3907757, y: 2.077281, z: 0.3804917}
+  m_TimeToStationary: 0.5
