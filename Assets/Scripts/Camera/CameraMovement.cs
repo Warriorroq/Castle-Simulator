@@ -12,9 +12,9 @@ public class CameraMovement : MonoBehaviour
     {
         Vector2 screenSize = new Vector2(Screen.width, Screen.height);
         _screenCenter = screenSize / 2f;
-        _screenRect.position = screenSize * 0.05f;
-        _screenRect.width = screenSize.x * 0.9f;
-        _screenRect.height = screenSize.y * 0.9f;
+        _screenRect.position = screenSize * 0.01f;
+        _screenRect.width = screenSize.x * 0.98f;
+        _screenRect.height = screenSize.y * 0.98f;
     }
     private void Update()
     {
