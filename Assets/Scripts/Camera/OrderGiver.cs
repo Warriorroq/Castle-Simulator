@@ -38,7 +38,7 @@ public class OrderGiver : MonoBehaviour
         if (!_takedUnit)
             _takedUnit = null;
         _lastTakedUnit?.unitSelector.ChangeSelectorColor(Color.white);
-        if (_lastTakedUnit == arg0)
+        if (_lastTakedUnit == arg0 && _lastTakedUnit.fraction == _myFraction)
         {
             _takedUnit?.unitSelector.ChangeSelectorColor(Color.white);
             _takedUnit = _lastTakedUnit;

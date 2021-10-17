@@ -4,7 +4,7 @@ namespace UnitSpace.Attributes
     {
         public Defence()
         {
-            value = 0;
+            value = 1;
             _level = 0;
         }
         public override void ConnectToUnit(Unit unit)
@@ -15,12 +15,16 @@ namespace UnitSpace.Attributes
         private void UseDefence(IteractData arg0)
         {
             arg0.damage -= value;
+            if (arg0.damage < 0)
+                arg0.damage = 0;
+            xpProgressValue += 10;
         }
-
         public override void LevelUpThis(float value)
         {
             _level++;
-            this.value++;
+            this.value += 2 * value;
         }
+        public override string ToString()
+            => $"Defence: | level {_level} | value {value}";
     }
 }

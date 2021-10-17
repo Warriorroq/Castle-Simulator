@@ -27,7 +27,7 @@ namespace UnitSpace.Orders
             =>_owner = owner;
         public void StartOrder()
         {
-            if (_target is null)
+            if (!_target)
             {
                 EndOrder();
                 return;

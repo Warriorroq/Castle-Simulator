@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnitSpace;
 using UnitSpace.Attributes;
 using UnityEngine;
@@ -28,11 +26,11 @@ public class HealthComponent : MonoBehaviour
         => attackState == ReadyState.Ready;
     public void GiveDamage(Unit target)
     {
+        attackState = ReadyState.NonReady;
+        Invoke(nameof(Reload), 1f);
         var data = new IteractData();
         giveIteractData?.Invoke(data);
         target.healthComponent.TakeDamage(data);
-        attackState = ReadyState.NonReady;
-        Invoke(nameof(Reload), 1f);
     }
     private void TakeDamage(IteractData data)
     {

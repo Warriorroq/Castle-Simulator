@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnitSpace.Skills;
 using UnitSpace.Enums;
+using UnitSpace.Attributes;
+
 namespace UnitSpace
 {
     public class Unit : MonoBehaviour
@@ -22,8 +24,18 @@ namespace UnitSpace
             TryGetComponent(out navMeshAgent);
             unitSelector = GetComponentInChildren<UnitSelector>();
         }
+        private void CreateStandartAttributes()
+        {
+            attributes.GetOrCreateAttribute<Strenght>();
+            attributes.GetOrCreateAttribute<Defence>();
+            attributes.GetOrCreateAttribute<Sensitivity>();
+            attributes.GetOrCreateAttribute<Speed>();
+            attributes.GetOrCreateAttribute<Strenght>();
+            attributes.GetOrCreateAttribute<Health>();
+        }
         private void Start()
         {
+            CreateStandartAttributes();
             var rand = Random.Range(1, 9);
             for(int i = 0; i< rand;i++)
             {
