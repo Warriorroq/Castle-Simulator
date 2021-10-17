@@ -87,17 +87,13 @@ namespace UnitSpace.Orders
             foreach (var hit in hitColliders)
             {               
                 if (hit.TryGetComponent<Unit>(out var target) && TryTakeTarget(target))
+                {
+                    _target = target;
                     return;
+                }
             }
         }
         private bool TryTakeTarget(Unit target)
-        {
-            if (target != _owner && target.fraction == _enemyFraction)
-            {
-                _target = target;
-                return true;
-            }
-            return false;
-        }
+            => target != _owner && target.fraction == _enemyFraction;
     }
 }

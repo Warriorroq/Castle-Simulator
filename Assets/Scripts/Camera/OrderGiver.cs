@@ -33,6 +33,7 @@ public class OrderGiver : MonoBehaviour
 
     private void TakeUnit(Unit arg0)
     {
+        unitTake.Invoke(arg0);
         if (!_lastTakedUnit)
             _lastTakedUnit = null;
         if (!_takedUnit)
@@ -43,7 +44,6 @@ public class OrderGiver : MonoBehaviour
             _takedUnit?.unitSelector.ChangeSelectorColor(Color.white);
             _takedUnit = _lastTakedUnit;
             _takedUnit?.unitSelector.ChangeSelectorColor(Color.green);
-            unitTake.Invoke(_takedUnit);
             _lastTakedUnit = null;
             return;
         }
