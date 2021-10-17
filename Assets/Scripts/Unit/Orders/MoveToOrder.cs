@@ -39,7 +39,7 @@ namespace UnitSpace.Orders
 
         public void UpdateOrder()
         {
-            if (Vector3.Distance(_owner.transform.position, _target) < 4)
+            if (Vector3.Distance(_owner.transform.position, _target) < 1.2f)
                 EndOrder();
 
             _owner.navMeshAgent.speed = _ownerSpeed.value;

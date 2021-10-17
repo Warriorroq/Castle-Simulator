@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnitSpace;
 using UnitSpace.Orders;
+using UnitSpace.Fraction;
 using UnityEngine.Events;
+using UnitSpace.Interfaces;
 
 public class OrderGiver : MonoBehaviour
 {
@@ -9,22 +11,20 @@ public class OrderGiver : MonoBehaviour
     private TakeUnit _unitTaker;
     [SerializeField] private Unit _lastTakedUnit;
     [SerializeField] private Unit _takedUnit;
-    [SerializeField]private Unit _unitClone;
-
+    [SerializeField] private Unit _unitClone;
+    [SerializeField] private ObjectFraction _myFraction;
+    [SerializeField] private ObjectFraction _enemyFraction;
     public void ClearUnitOrders()
     {
         _takedUnit?.unitOrders.ClearOrders();
         _takedUnit?.unitOrders.StopOrder();
     }
     public void FollowUnit()
-        =>_takedUnit?.unitOrders.AddOrder(new FollowToOrder(_lastTakedUnit));
+        =>GiveOrders(new FollowToOrder(_lastTakedUnit));
     public void PatrolUnit()
-        => _takedUnit?.unitOrders.AddOrder(new ModerateOrder(_takedUnit.transform.position));
+        =>GiveOrders(new ModerateOrder(_takedUnit.transform.position, _enemyFraction));
     public void AttackUnit()
-    {
-        _takedUnit?.unitOrders.AddOrder(new FollowToOrder(_lastTakedUnit));
-        _takedUnit?.unitOrders.AddOrder(new AttackOrder(_lastTakedUnit));
-    }
+        =>GiveOrders(new FollowToOrder(_lastTakedUnit), new AttackOrder(_lastTakedUnit));
     private void Awake()
     {
         _unitTaker = GetComponent<TakeUnit>();
@@ -51,7 +51,7 @@ public class OrderGiver : MonoBehaviour
         _lastTakedUnit?.unitSelector.ChangeSelectorColor(Color.red);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
@@ -74,8 +74,16 @@ public class OrderGiver : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit, float.MaxValue))
+            GiveOrders(new MoveToOrder(hit.point));
+    }
+    private bool IsSameFraction(Unit unit)
+        => unit.fraction == _myFraction;
+    private void GiveOrders(params IOrder[] orders)
+    {
+        if (IsSameFraction(_takedUnit))
         {
-            _takedUnit?.unitOrders.AddOrder(new MoveToOrder(hit.point));
+            foreach (var order in orders)
+                _takedUnit?.unitOrders.AddOrder(order);
         }
     }
 }

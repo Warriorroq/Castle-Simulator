@@ -16,7 +16,7 @@ namespace UnitSpace.Attributes
         }
         public override string ToString()
         {
-            return $"Health: | level {_level} | value {value}";
+            return $"Health: | level {_level} | value {value} / {currentHp}";
         }
     }
 }

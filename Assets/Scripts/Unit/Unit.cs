@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 using UnitSpace.Skills;
-using UnitSpace.Attributes;
-
+using UnitSpace.Fraction;
 namespace UnitSpace
 {
     public class Unit : MonoBehaviour
@@ -14,6 +12,7 @@ namespace UnitSpace
         public NavMeshAgent navMeshAgent;
         public HealthComponent healthComponent;
         public UnitSelector unitSelector;
+        public ObjectFraction fraction;
         private void Awake()
         {
             attributes = new UnitAttributes(this);

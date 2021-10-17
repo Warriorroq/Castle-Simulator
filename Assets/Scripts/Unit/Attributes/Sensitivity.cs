@@ -4,7 +4,7 @@ namespace UnitSpace.Attributes
     {
         public Sensitivity()
         {
-            value = 5;
+            value = 10;
         }
         public override void LevelUpThis(float value)
         {
