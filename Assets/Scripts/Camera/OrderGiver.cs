@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnitSpace;
 using UnitSpace.Orders;
-using UnitSpace.Fraction;
+using UnitSpace.Enums;
 using UnityEngine.Events;
 using UnitSpace.Interfaces;
 
@@ -12,8 +12,8 @@ public class OrderGiver : MonoBehaviour
     [SerializeField] private Unit _lastTakedUnit;
     [SerializeField] private Unit _takedUnit;
     [SerializeField] private Unit _unitClone;
-    [SerializeField] private ObjectFraction _myFraction;
-    [SerializeField] private ObjectFraction _enemyFraction;
+    [SerializeField] private UnitFraction _myFraction;
+    [SerializeField] private UnitFraction _enemyFraction;
     public void ClearUnitOrders()
     {
         _takedUnit?.unitOrders.ClearOrders();

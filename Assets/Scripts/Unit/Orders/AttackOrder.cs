@@ -51,10 +51,15 @@ namespace UnitSpace.Orders
                 EndOrder();
                 return;
             }
-            _target.healthComponent.TakeDamage(new IteractData()
+            Attack();
+        }
+        private void Attack()
+        {
+            if(_owner.healthComponent.IsReadyToAttack())
             {
-                damage = _strenght.value
-            });
+                _owner.healthComponent.GiveDamage(_target);
+                _strenght.xpProgressValue += 10;
+            }
         }
     }
 }

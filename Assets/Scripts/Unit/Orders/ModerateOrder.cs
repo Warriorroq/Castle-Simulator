@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnitSpace.Interfaces;
 using UnitSpace.Attributes;
+using UnitSpace.Enums;
 namespace UnitSpace.Orders
 {
     public class ModerateOrder : IOrder
@@ -14,9 +15,11 @@ namespace UnitSpace.Orders
         private Speed _speed;
         private Unit _target;
         private Vector3 _moderatePosition;
-        public ModerateOrder(Vector3 moderatePosition)
+        private UnitFraction _enemyFraction;
+        public ModerateOrder(Vector3 moderatePosition, UnitFraction enemyFraction)
         {
             _moderatePosition = moderatePosition;
+            _enemyFraction = enemyFraction;
         }
         public void EndOrder()
         {
@@ -63,12 +66,10 @@ namespace UnitSpace.Orders
         }
         private void AttackTarget(Vector3 distance)
         {
-            if (distance.sqrMagnitude < 2f)
+            if (distance.sqrMagnitude < 2f && _owner.healthComponent.IsReadyToAttack())
             {
-                _target.healthComponent.TakeDamage(new IteractData()
-                {
-                    damage = _strenght.value
-                });
+                _owner.healthComponent.GiveDamage(_target);
+                _strenght.xpProgressValue += 10;
             }
         }
         private void MoveToModeratePoint()
@@ -76,7 +77,7 @@ namespace UnitSpace.Orders
         private void CheckTheCurrentModerateDistance()
         {
             var distance = _owner.transform.position - _moderatePosition;
-            var maxDistance = _sensitivity.value * _sensitivity.value;
+            var maxDistance = _sensitivity.value * _sensitivity.value * 2;
             if (distance.sqrMagnitude > maxDistance)
                 _target = null;
         }
@@ -84,12 +85,19 @@ namespace UnitSpace.Orders
         {
             Collider[] hitColliders = Physics.OverlapSphere(_owner.transform.position, _sensitivity.value);
             foreach (var hit in hitColliders)
-            {
-                if (hit.TryGetComponent<Unit>(out var target) && target != _owner)
-                {
-                    _target = target;
-                }
+            {               
+                if (hit.TryGetComponent<Unit>(out var target) && TryTakeTarget(target))
+                    return;
             }
+        }
+        private bool TryTakeTarget(Unit target)
+        {
+            if (target != _owner && target.fraction == _enemyFraction)
+            {
+                _target = target;
+                return true;
+            }
+            return false;
         }
     }
 }

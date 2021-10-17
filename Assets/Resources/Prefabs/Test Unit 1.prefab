@@ -139,6 +139,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   healthComponent: {fileID: 0}
   unitSelector: {fileID: 0}
+  fraction: 2
 --- !u!114 &2653403246438682458
 MonoBehaviour:
   m_ObjectHideFlags: 0

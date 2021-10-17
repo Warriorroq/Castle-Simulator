@@ -10,7 +10,17 @@ namespace UnitSpace.Attributes
         {
             this.value += value;
             _level++;
-        }        
+        }
+        public override void ConnectToUnit(Unit unit)
+        {
+            unit.healthComponent.giveIteractData.AddListener(UseDamage);
+        }
+
+        private void UseDamage(IteractData arg0)
+        {
+            arg0.damage = value;
+        }
+
         public override string ToString()
         {
             return $"Strenght: | level {_level} | value {value}";

@@ -854,7 +854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2653403246438682461, guid: b580f7c020eb217468303fe8a7db48d1, type: 3}
       propertyPath: fraction
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b580f7c020eb217468303fe8a7db48d1, type: 3}
@@ -2193,7 +2193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2653403246438682461, guid: b580f7c020eb217468303fe8a7db48d1, type: 3}
       propertyPath: fraction
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b580f7c020eb217468303fe8a7db48d1, type: 3}

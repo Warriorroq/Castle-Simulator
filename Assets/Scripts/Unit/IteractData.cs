@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System;
 using UnitSpace.Interfaces;
 namespace UnitSpace
-{
-    [Serializable]
-    public struct IteractData
+{   
+    public class IteractData
     {
         public float damage;
         public float healing;

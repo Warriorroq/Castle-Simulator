@@ -4,28 +4,27 @@ namespace UnitSpace
 {
     public class UnitAttributes
     {
-        private List<Attribute> _attributes;
+        public List<Attribute> attributes;
         private Unit _owner;
         public UnitAttributes(Unit owner)
         {
             _owner = owner;
-            _attributes = new List<Attribute>();
+            attributes = new List<Attribute>();
         }
         public T GetOrCreateAttribute<T>() where T : Attribute, new()
         {
-            foreach (var item in _attributes)
+            foreach (var item in attributes)
                 if (item.GetType() == typeof(T))
                     return item as T;
             var newAttribute = new T();
-            _attributes.Add(newAttribute);
+            attributes.Add(newAttribute);
+            newAttribute.ConnectToUnit(_owner);
             return newAttribute;
         }
-        public List<Attribute> GetAttributes()
-            => _attributes;
         public override string ToString()
         {
             var text = string.Empty;
-            foreach (var attribute in _attributes)
+            foreach (var attribute in attributes)
                 text += attribute.ToString() + "\n";
             return text;
         }

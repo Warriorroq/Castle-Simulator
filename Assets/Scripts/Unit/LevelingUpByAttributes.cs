@@ -23,14 +23,14 @@ namespace UnitSpace
         public void CountUnitTotalExp(Unit unit, out float currentExp)
         {
             currentExp = 0;
-            foreach(var attribute in unit.attributes.GetAttributes())
+            foreach(var attribute in unit.attributes.attributes)
             {
                 currentExp += attribute.xpProgressValue;
             }
         }
         private void LevelUpAttributesIn(Unit unit)
         {
-            foreach (var attribute in unit.attributes.GetAttributes())
+            foreach (var attribute in unit.attributes.attributes)
             {
                 attribute.value += attribute.xpProgressValue / expToLevelUp;
                 attribute.xpProgressValue = 0;

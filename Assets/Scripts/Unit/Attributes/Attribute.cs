@@ -11,6 +11,7 @@ namespace UnitSpace.Attributes
             this.value = value;
             this.xpProgressValue = xpProgressValue;
         }
+        public virtual void ConnectToUnit(Unit unit){}
         public abstract void LevelUpThis(float value);
     }
 }

@@ -4,7 +4,7 @@ using UnitSpace;
 using UnitSpace.Attributes;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnitSpace.Enums;
 public class HealthComponent : MonoBehaviour
 {    
     public UnityEvent<IteractData> giveIteractData;
@@ -12,6 +12,7 @@ public class HealthComponent : MonoBehaviour
     public UnityEvent destroyUnit;
     private Unit _owner;
     private Health _health;
+    private ReadyState attackState;
     private float Health
     {
         get
@@ -23,7 +24,17 @@ public class HealthComponent : MonoBehaviour
             _health.currentHp = value;
         }
     }
-    public void TakeDamage(IteractData data)
+    public bool IsReadyToAttack()
+        => attackState == ReadyState.Ready;
+    public void GiveDamage(Unit target)
+    {
+        var data = new IteractData();
+        giveIteractData?.Invoke(data);
+        target.healthComponent.TakeDamage(data);
+        attackState = ReadyState.NonReady;
+        Invoke(nameof(Reload), 1f);
+    }
+    private void TakeDamage(IteractData data)
     {
         takeIteractData?.Invoke(data);
         ReduceDamageFromHealth(data);
@@ -35,6 +46,7 @@ public class HealthComponent : MonoBehaviour
     private void Start()
     {
         _health = _owner.attributes.GetOrCreateAttribute<Health>();
+        attackState = ReadyState.Ready;
     }
     private void DestroyThisUnit()
     {
@@ -45,6 +57,8 @@ public class HealthComponent : MonoBehaviour
     private void ReduceDamageFromHealth(IteractData data)
     {
         Health -= data.damage;
-        Debug.Log($"{name} tacked damage {data.damage} hp is {Health}");
+        Debug.Log($"{name} taked damage {data.damage} hp is {Health}");
     }
+    private void Reload()
+        => attackState = ReadyState.Ready;
 }
