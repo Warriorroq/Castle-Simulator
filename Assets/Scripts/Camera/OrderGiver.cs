@@ -19,6 +19,8 @@ public class OrderGiver : MonoBehaviour
         _takedUnit?.unitOrders.ClearOrders();
         _takedUnit?.unitOrders.StopOrder();
     }
+    public void RecoverOrder()
+        => GiveOrders(new RecoverOrder());
     public void FollowUnit()
         =>GiveOrders(new FollowToOrder(_lastTakedUnit));
     public void PatrolUnit()

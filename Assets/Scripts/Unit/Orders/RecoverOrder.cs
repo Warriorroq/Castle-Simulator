@@ -1,17 +1,15 @@
 using UnityEngine;
 using UnitSpace.Interfaces;
+using UnitSpace.Attributes;
+
 namespace UnitSpace.Orders
 {
     public class RecoverOrder : IOrder
     {
         private Unit _owner;
-        private Unit _target;
-        private HealthComponent _healthComponent;
+        private Health _health;
         private IOrder.OrderState _state;
-        public RecoverOrder(Unit target)
-        {
-            _target = target;
-        }
+        private float _timer;
         public void EndOrder()
         {
             _state = IOrder.OrderState.Finished;
@@ -22,15 +20,29 @@ namespace UnitSpace.Orders
         {
             _owner = owner;
             _state = IOrder.OrderState.Ready;
-            _healthComponent = _owner.healthComponent;
+            _health = _owner.attributes.GetOrCreateAttribute<Health>();
         }
         public void StartOrder()
         {
             _state = IOrder.OrderState.InProgress;
         }
-        public void UpdateOrder()
+        public void UpdateOrder(){
+            if(_timer > 3.5f)
+            {
+                Heal();
+                _timer = 0;
+            }
+            _timer += Time.deltaTime;
+        }
+        private void Heal()
         {
-            
-        }        
+            if (_health.value <= _health.currentHp + 1)
+            {
+                _health.currentHp = _health.value;
+                EndOrder();
+            }
+            else
+                _health.currentHp++;
+        }
     }
 }

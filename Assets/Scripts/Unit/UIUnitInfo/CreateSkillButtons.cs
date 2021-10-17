@@ -22,7 +22,7 @@ public class CreateSkillButtons : MonoBehaviour
             prefab.onClick.AddListener(skill.Use);
         }
     }
-    private void Clear()
+    public void Clear()
     {
         foreach (var button in _skills)
             Destroy(button.gameObject);

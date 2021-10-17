@@ -14,6 +14,7 @@ public class UnitInfoReader : MonoBehaviour
     {
         _unitName.text = string.Empty;
         _unitInfo.text = string.Empty;
+        _createSkillButtons.Clear();
     }
     public void TakeUnit(Unit unit)
     {
@@ -22,17 +23,19 @@ public class UnitInfoReader : MonoBehaviour
     }
     private void UpdateInformationAboutUnit()
     {
-        if(_takedUnit)
+        if (_takedUnit)
         {
             _createSkillButtons.Create(_takedUnit);
             LevelingUpByAttributes.GetInstance().CountUnitTotalExp(_takedUnit, out var exp);
             _unitName.text = _takedUnit.name;
             _unitInfo.text = $"attributes: \n {_takedUnit.attributes} \n skills: \n {_takedUnit.skills}  \n exp is: {exp}";
         }
+        else
+            ClearInformation();
     }
     private void Awake()
     {
         FindObjectOfType<OrderGiver>().unitTake.AddListener(TakeUnit);
-        InvokeRepeating(nameof(UpdateInformationAboutUnit), 0, 1f);
+        InvokeRepeating(nameof(UpdateInformationAboutUnit), 0, .1f);
     }
 }
