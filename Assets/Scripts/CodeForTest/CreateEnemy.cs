@@ -24,7 +24,6 @@ public class CreateEnemy : IOrder
         =>_target = unit;
     public void EndOrder()
     {
-        SpawnUnits();
         _state = IOrder.OrderState.Finished;
     }
 
@@ -44,6 +43,7 @@ public class CreateEnemy : IOrder
 
     public void UpdateOrder()
     {
+        SpawnUnits();
         EndOrder();
     }
     private void SpawnUnits()
@@ -53,8 +53,7 @@ public class CreateEnemy : IOrder
         if(_target)
         {
             minion.unitOrders.AddOrder(new AttackOrder(_target));
-            minion.unitOrders.AddOrder(new ModerateOrder(_target.transform.position, _enemyFraction));
-            EndOrder();
         }
+        minion.unitOrders.AddOrder(new ModerateOrder(_target.transform.position, _enemyFraction));
     }
 }

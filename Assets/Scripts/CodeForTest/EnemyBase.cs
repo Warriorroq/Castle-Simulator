@@ -13,6 +13,6 @@ public class EnemyBase : MonoBehaviour
         unit.attributes.GetOrCreateAttribute<Strenght>().value = 0;
         unit.attributes.GetOrCreateAttribute<Speed>().value = 0;
         unit.attributes.GetOrCreateAttribute<Sensitivity>().value = 30;
-        unit.unitOrders.AddOrder(new EnemyBaseLogic(_prefab, UnitFraction.Void, UnitFraction.Core));
+        unit.unitOrders.AddOrder(new EnemyBaseLogic(_prefab, UnitFraction.Core));
     }
 }
