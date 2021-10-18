@@ -5,6 +5,7 @@ using UnitSpace.Enums;
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField] private Unit _prefab;
+    [SerializeField] private UnitFraction _enemy;
     private void Start()
     {
         var unit = GetComponent<Unit>();
@@ -13,6 +14,11 @@ public class EnemyBase : MonoBehaviour
         unit.attributes.GetOrCreateAttribute<Strenght>().value = 0;
         unit.attributes.GetOrCreateAttribute<Speed>().value = 0;
         unit.attributes.GetOrCreateAttribute<Sensitivity>().value = 30;
-        unit.unitOrders.AddOrder(new EnemyBaseLogic(_prefab, UnitFraction.Core));
+        InvokeRepeating(nameof(GiveCreateOrder), 1f, 2f);
+    }
+    private void GiveCreateOrder()
+    {
+        TryGetComponent(out Unit unit);
+        unit.unitOrders.AddOrder(new CreateEnemy(_prefab, unit.fraction, _enemy));
     }
 }

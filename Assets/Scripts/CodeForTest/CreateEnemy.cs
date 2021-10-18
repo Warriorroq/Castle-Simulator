@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnitSpace.Interfaces;
 using UnitSpace.Orders;
@@ -10,7 +8,6 @@ public class CreateEnemy : IOrder
 {
     private Unit _owner;
     private Unit _prefab;
-    private Unit _target;
     private IOrder.OrderState _state;
     private UnitFraction _enemyFraction;
     private UnitFraction _fraction;
@@ -20,11 +17,10 @@ public class CreateEnemy : IOrder
         _enemyFraction = enemyFraction;
         _fraction = fraction;
     }
-    public void SetTarget(Unit unit)
-        =>_target = unit;
     public void EndOrder()
     {
         _state = IOrder.OrderState.Finished;
+        SpawnUnits();
     }
 
     public IOrder.OrderState GetState()
@@ -43,17 +39,13 @@ public class CreateEnemy : IOrder
 
     public void UpdateOrder()
     {
-        SpawnUnits();
         EndOrder();
     }
     private void SpawnUnits()
     {
-        var minion = Object.Instantiate(_prefab, _owner.transform.position + new Vector3(Random.Range(1,2), 0, Random.Range(-2, 2)), Quaternion.identity) as Unit;
+        var randomVector = new Vector3(Random.Range(1, 2), 1, Random.Range(-5, 5));
+        var minion = Object.Instantiate(_prefab, _owner.transform.position + randomVector, Quaternion.identity) as Unit;
         minion.fraction = _fraction;
-        if(_target)
-        {
-            minion.unitOrders.AddOrder(new AttackOrder(_target));
-        }
-        minion.unitOrders.AddOrder(new ModerateOrder(_target.transform.position, _enemyFraction));
+        minion.unitOrders.AddOrder(new ModerateOrder(_owner.transform.position, _enemyFraction));
     }
 }
