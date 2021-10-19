@@ -16,9 +16,11 @@ public class UnitInfoReader : MonoBehaviour
         _unitInfo.text = string.Empty;
         _createSkillButtons.Clear();
     }
-    public void TakeUnit(Unit unit)
+    public void TakeUnit(List<Unit> units)
     {
-        _takedUnit = unit;
+        if (units.Count == 0)
+            return;
+        _takedUnit = units[0];
         UpdateInformationAboutUnit();
     }
     private void UpdateInformationAboutUnit()
@@ -35,7 +37,7 @@ public class UnitInfoReader : MonoBehaviour
     }
     private void Awake()
     {
-        FindObjectOfType<OrderGiver>().unitTake.AddListener(TakeUnit);
+        FindObjectOfType<PlayerCamera.UnitTaker>().takeUnits.AddListener(TakeUnit);
         InvokeRepeating(nameof(UpdateInformationAboutUnit), 0, .1f);
     }
 }

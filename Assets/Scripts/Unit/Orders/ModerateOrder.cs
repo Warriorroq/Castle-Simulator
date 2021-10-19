@@ -46,7 +46,8 @@ namespace UnitSpace.Orders
             if (!_target)
             {
                 FindTarget();
-                MoveToModeratePoint();
+                if(!_target)
+                    MoveToModeratePoint();
             }
             CheckTheCurrentModerateDistance();
             if (_target)
