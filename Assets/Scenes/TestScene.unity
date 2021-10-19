@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.114581846, g: 0.23120543, b: 0.33105808, a: 1}
+  m_IndirectSpecularColor: {r: 0.14193979, g: 0.286233, b: 0.40715086, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -288,7 +288,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1750408499}
-        m_TargetAssemblyTypeName: OrderGiver, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerCamera.GiveOrderToUnits, Assembly-CSharp
         m_MethodName: FollowUnit
         m_Mode: 1
         m_Arguments:
@@ -1022,7 +1022,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1750408499}
-        m_TargetAssemblyTypeName: OrderGiver, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerCamera.GiveOrderToUnits, Assembly-CSharp
         m_MethodName: AttackUnit
         m_Mode: 1
         m_Arguments:
@@ -1234,8 +1234,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1750408499}
-        m_TargetAssemblyTypeName: OrderGiver, Assembly-CSharp
-        m_MethodName: ClearUnitOrders
+        m_TargetAssemblyTypeName: PlayerCamera.GiveOrderToUnits, Assembly-CSharp
+        m_MethodName: ClearOrders
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1367,7 +1367,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1750408499}
-        m_TargetAssemblyTypeName: OrderGiver, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerCamera.GiveOrderToUnits, Assembly-CSharp
         m_MethodName: PatrolUnit
         m_Mode: 1
         m_Arguments:
@@ -1529,7 +1529,7 @@ GameObject:
   - component: {fileID: 1518943262}
   m_Layer: 0
   m_Name: Enemy Base
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1974,8 +1974,8 @@ GameObject:
   - component: {fileID: 1750408502}
   - component: {fileID: 1750408501}
   - component: {fileID: 1750408505}
-  - component: {fileID: 1750408500}
   - component: {fileID: 1750408499}
+  - component: {fileID: 1750408500}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1992,14 +1992,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750408498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bc06ae41677a645a20a419ba36cce1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f70df769dda84640905a7d08ba1a30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitTake:
-    m_PersistentCalls:
-      m_Calls: []
-  _lastTakedUnit: {fileID: 0}
-  _takedUnit: {fileID: 0}
   _unitClone: {fileID: 2653403246438682461, guid: b580f7c020eb217468303fe8a7db48d1, type: 3}
   _myFraction: 2
   _enemyFraction: 1
@@ -2012,12 +2007,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750408498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd9bb6e2fb95174e91ecdf983f2f1a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 68481de26f5cb5b40a23e7df0cdff90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  takeUnit:
+  takeUnits:
     m_PersistentCalls:
       m_Calls: []
+  _unitTag: Unit
 --- !u!114 &1750408501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2308,7 +2304,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1750408499}
-        m_TargetAssemblyTypeName: OrderGiver, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerCamera.GiveOrderToUnits, Assembly-CSharp
         m_MethodName: RecoverOrder
         m_Mode: 1
         m_Arguments:

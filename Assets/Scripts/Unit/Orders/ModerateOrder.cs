@@ -24,6 +24,7 @@ namespace UnitSpace.Orders
         public void EndOrder()
         {
             _state = IOrder.OrderState.Finished;
+            _owner.navMeshAgent.Stop();
         }
         public IOrder.OrderState GetState()
             => _state;
@@ -39,10 +40,12 @@ namespace UnitSpace.Orders
         public void StartOrder()
         {
             _state = IOrder.OrderState.InProgress;
+            _owner.navMeshAgent.isStopped = false;
         }
 
         public void UpdateOrder()
         {
+            //Debug.Log($"{_target}");
             if (!_target)
             {
                 FindTarget();

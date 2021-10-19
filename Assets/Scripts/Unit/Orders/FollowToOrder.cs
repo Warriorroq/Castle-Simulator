@@ -45,16 +45,18 @@ namespace UnitSpace.Orders
                 EndOrder();
                 return;
             }
-
-            var comparePositions = _lastTargetPosition - _target.transform.position;
-            if(comparePositions.sqrMagnitude > 1f)
-                _owner.navMeshAgent.SetDestination(_target.transform.position);
-
+            SetDestinationByDistanceChange(2f);
             var distance = _owner.transform.position - _target.transform.position;
-            if (distance.sqrMagnitude < 1f)
+            if (distance.sqrMagnitude < 2f)
                 EndOrder();
 
             _owner.navMeshAgent.speed = _ownerSpeed.value;
+        }
+        private void SetDestinationByDistanceChange(float change)
+        {
+            var comparePositions = _lastTargetPosition - _target.transform.position;
+            if (comparePositions.sqrMagnitude > change)
+                _owner.navMeshAgent.SetDestination(_target.transform.position);
         }
     }
 }

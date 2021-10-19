@@ -18,37 +18,34 @@ namespace PlayerCamera
         public void RecoverOrder()
         {
             foreach (var unit in _takedUnits[_myFraction])
-                unit.unitOrders.AddOrder(new RecoverOrder());
+                unit?.unitOrders.AddOrder(new RecoverOrder());
         }
         public void ClearOrders()
         {
             foreach (var unit in _takedUnits[_myFraction])
             {
-                unit.unitOrders.StopOrder();
-                unit.unitOrders.ClearOrders();
+                unit?.unitOrders.StopOrder();
+                unit?.unitOrders.ClearOrders();
             }
         }
         public void FollowUnit()
         {
             foreach (var unit in _takedUnits[_myFraction])
                 foreach (var enemy in _takedUnits[_enemyFraction])
-                    unit.unitOrders.AddOrder(new FollowToOrder(enemy));
+                    unit?.unitOrders.AddOrder(new FollowToOrder(enemy));
         }
         public void PatrolUnit()
         {
             foreach (var unit in _takedUnits[_myFraction])
+            {
+                if (unit)
                     unit.unitOrders.AddOrder(new ModerateOrder(unit.transform.position, _enemyFraction));
+            }
         }
         public void AttackUnit()
         {
             foreach (var unit in _takedUnits[_myFraction])
-            {
-                foreach (var enemy in _takedUnits[_enemyFraction])
-                {
-                    unit.unitOrders.AddOrder(new FollowToOrder(enemy));
-                    unit.unitOrders.AddOrder(new AttackOrder(enemy));
-                }
-            }
+                unit?.unitOrders.AddOrder(new AttackOrder(_takedUnits[_enemyFraction]));
         }
         private void MoveToPoint()
         {
@@ -93,12 +90,12 @@ namespace PlayerCamera
         {
             foreach (var key in _takedUnits.Keys)
                 foreach (var unit in _takedUnits[key])
-                    unit.unitSelector.ChangeSelectorColor(color);
+                    unit?.unitSelector.ChangeSelectorColor(color);
         }
         private void ActiveFractionUnitsSelectors(UnitFraction fraction, Color color)
         {
             foreach (var unit in _takedUnits[fraction])
-                unit.unitSelector.ChangeSelectorColor(color);
+                unit?.unitSelector.ChangeSelectorColor(color);
         }
         private void ClearDictionaryValues()
         {

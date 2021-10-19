@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnitSpace.Interfaces;
 using UnitSpace.Attributes;
+using UnityEngine;
+
 namespace UnitSpace.Orders
 {
 
@@ -11,7 +13,7 @@ namespace UnitSpace.Orders
         private Unit _currentTarget;
         private Strenght _strenght;
         private IOrder.OrderState _state;
-        public AttackOrder(params Unit[] targets)
+        public AttackOrder(IEnumerable<Unit> targets)
         {
             _targets = new List<Unit>(targets);
         }
@@ -30,25 +32,31 @@ namespace UnitSpace.Orders
         public void StartOrder()
         {
             _state = IOrder.OrderState.InProgress;
-            FindNearestTarget();
         }
         public void UpdateOrder()
         {
-            ClearTargets();
-            if (_targets.Count == 0)
-            {
-                EndOrder();
-                return;
-            }
             if (!_currentTarget)
             {
+                if (_targets.Count == 0)
+                {
+                    EndOrder();
+                    return;
+                }
                 FindNearestTarget();
                 if (!_currentTarget)
+                {
+                    EndOrder();
                     return;
+                }
             }
+            if (_currentTarget)
+                AttackTarget();
+        }
+        private void AttackTarget()
+        {
             var distance = _owner.transform.position - _currentTarget.transform.position;
             if (distance.sqrMagnitude < 2)
-                Attack();
+                GiveDamageAndEXPForAttack();
             else
             {
                 _owner.unitOrders.AddOrder(new FollowToOrder(_currentTarget));
@@ -61,6 +69,8 @@ namespace UnitSpace.Orders
             var minMagnitude = float.MaxValue;
             foreach(var target in _targets)
             {
+                if (!target)
+                    continue;
                 var distance = _owner.transform.position - target.transform.position;
                 var distanceMagnitude = distance.sqrMagnitude;
                 if (distanceMagnitude < minMagnitude)
@@ -71,18 +81,7 @@ namespace UnitSpace.Orders
             }
             _targets.Remove(_currentTarget);
         }
-        private void ClearTargets()
-        {
-            List<Unit> clearTargets = new List<Unit>();
-            foreach(var target in _targets)
-            {
-                if (!target)
-                    clearTargets.Add(target);
-            }
-            foreach (var target in clearTargets)
-                _targets.Remove(target);
-        }
-        private void Attack()
+        private void GiveDamageAndEXPForAttack()
         {
             if(_owner.healthComponent.IsReadyToAttack())
             {

@@ -47,5 +47,6 @@ public class CreateEnemy : IOrder
         var minion = Object.Instantiate(_prefab, _owner.transform.position + randomVector, Quaternion.identity) as Unit;
         minion.fraction = _fraction;
         minion.unitOrders.AddOrder(new ModerateOrder(_owner.transform.position, _enemyFraction));
+        minion.GetComponent<MeshRenderer>().material.color = Color.black;
     }
 }
