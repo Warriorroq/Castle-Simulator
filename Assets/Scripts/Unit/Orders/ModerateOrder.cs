@@ -24,8 +24,8 @@ namespace UnitSpace.Orders
         public void EndOrder()
         {
             _state = IOrder.OrderState.Finished;
-            _owner.navMeshAgent.Stop();
-        }
+            _owner?.navMeshAgent.Stop();
+        }   
         public IOrder.OrderState GetState()
             => _state;
         public void SetUnitOwner(Unit owner)

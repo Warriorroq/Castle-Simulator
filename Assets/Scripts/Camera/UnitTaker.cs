@@ -13,7 +13,8 @@ namespace PlayerCamera
         private List<Unit> _takedUnits;
         private Vector2 _onClick;
         private Vector2 _endClick;
-        private void Start()
+        [SerializeField]private List<RectTransform> _canvasRects;
+        private void Awake()
         {
             _takedUnits = new List<Unit>();
         }
@@ -24,9 +25,22 @@ namespace PlayerCamera
             if (Input.GetMouseButtonUp(0))
             {
                 _endClick = Input.mousePosition;
-                CreateRect();
-                GetAllObjectsFromRect();
+                if(!TochesCanvasRects(_endClick))
+                {
+                    CreateRect();
+                    GetAllObjectsFromRect();
+                }
             }
+        }
+        private bool TochesCanvasRects(Vector2 position)
+        {
+            foreach(var rect in _canvasRects)
+            {
+                if (rect.gameObject.activeSelf)
+                    if (rect.rect.Contains(position))
+                        return true;
+            }
+            return false;
         }
         private void CreateRect()
         {
