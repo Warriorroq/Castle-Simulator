@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnitSpace;
 using UnitSpace.Enums;
-using UnitSpace.Interfaces;
 using UnitSpace.Orders;
 using UnityEngine;
 
@@ -102,7 +100,7 @@ namespace PlayerCamera
             foreach (var key in _takedUnits)
                 key.Value.Clear();
         }
-        private string GetInfo()
+        private string GetInfoAboutDictionary()
         {
             string str = string.Empty;
             foreach(var key in _takedUnits)
