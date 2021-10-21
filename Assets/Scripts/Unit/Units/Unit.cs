@@ -14,6 +14,7 @@ namespace UnitSpace
         public NavMeshAgent navMeshAgent;
         public HealthComponent healthComponent;
         public UnitSelector unitSelector;
+        public ResourcePosition resourcePosition;
         public UnitFraction fraction;
         private void Awake()
         {
@@ -22,6 +23,7 @@ namespace UnitSpace
             TryGetComponent(out unitOrders);
             TryGetComponent(out healthComponent);
             TryGetComponent(out navMeshAgent);
+            resourcePosition = GetComponentInChildren<ResourcePosition>();
             unitSelector = GetComponentInChildren<UnitSelector>();
         }
         private void CreateStandartAttributes()

@@ -26,11 +26,20 @@ namespace PlayerCamera
                 unit?.unitOrders.ClearOrders();
             }
         }
+        public void PickUpResources()
+        {
+            foreach(var Unit in _takedUnits[_myFraction])
+            {
+                foreach (var resource in _takedUnits[UnitFraction.Resources])
+                    Unit.unitOrders.AddOrder(new PickUpResource(resource));
+            }
+        }
         public void FollowUnit()
         {
             foreach (var unit in _takedUnits[_myFraction])
                 foreach (var enemy in _takedUnits[_enemyFraction])
                     unit?.unitOrders.AddOrder(new FollowToOrder(enemy));
+            //To DO: follow nearest enemy;
         }
         public void PatrolUnit()
         {

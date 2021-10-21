@@ -90,14 +90,14 @@ namespace UnitSpace.Orders
             Collider[] hitColliders = Physics.OverlapSphere(_owner.transform.position, _sensitivity.value);
             foreach (var hit in hitColliders)
             {               
-                if (hit.TryGetComponent<Unit>(out var target) && TryTakeTarget(target))
+                if (hit.TryGetComponent<Unit>(out var target) && TargetIsNormal(target))
                 {
                     _target = target;
                     return;
                 }
             }
         }
-        private bool TryTakeTarget(Unit target)
+        private bool TargetIsNormal(Unit target)
             => target != _owner && target.fraction == _enemyFraction;
     }
 }
