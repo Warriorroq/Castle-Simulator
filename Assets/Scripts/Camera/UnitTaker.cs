@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnitSpace;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace PlayerCamera
 {
@@ -13,36 +15,27 @@ namespace PlayerCamera
         private List<Unit> _takedUnits;
         private Vector2 _onClick;
         private Vector2 _endClick;
-        [SerializeField]private List<RectTransform> _canvasRects;
         private void Awake()
         {
             _takedUnits = new List<Unit>();
         }
         private void Update()
         {
+            if (!EventSystem.current.IsPointerOverGameObject())
+                CreateRectAndGetObjectFromIt();
+        }
+        private void CreateRectAndGetObjectFromIt()
+        {
             if (Input.GetMouseButtonDown(0))
                 _onClick = Input.mousePosition;
             if (Input.GetMouseButtonUp(0))
             {
                 _endClick = Input.mousePosition;
-                if(!TochesCanvasRects(_endClick))
-                {
-                    CreateRect();
-                    GetAllObjectsFromRect();
-                }
+                CreateRectByMousePositions();
+                GetAllObjectsFromRect();
             }
         }
-        private bool TochesCanvasRects(Vector2 position)
-        {
-            foreach(var rect in _canvasRects)
-            {
-                if (rect.gameObject.activeSelf)
-                    if (rect.rect.Contains(position))
-                        return true;
-            }
-            return false;
-        }
-        private void CreateRect()
+        private void CreateRectByMousePositions()
         {
             SetRectPos();
             SetRectSize();
