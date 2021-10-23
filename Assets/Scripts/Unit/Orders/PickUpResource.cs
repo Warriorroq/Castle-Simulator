@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnitSpace.Interfaces;
-using UnitSpace.Attributes;
 using Resource;
 namespace UnitSpace.Orders
 {
@@ -18,6 +14,7 @@ namespace UnitSpace.Orders
         public void EndOrder()
         {
             _state = IOrder.OrderState.Finished;
+            _owner.resourcePosition.TakeResource(_resource);
         }
         public IOrder.OrderState GetState()
             => _state;
@@ -32,17 +29,15 @@ namespace UnitSpace.Orders
             var distance = _owner.transform.position - _resource.transform.position;
             if(distance.sqrMagnitude > 2f && _resource.IsAvaliable)
             {
+                _owner.unitOrders.StopImmediate();
                 MoveToResourceAlgorithm();
                 return;
             }
-            _owner.resourcePosition.TakeResource(_resource);
             EndOrder();
         }
         private void MoveToResourceAlgorithm()
         {
-            _owner.unitOrders.AddOrder(new MoveToOrder(_resource.transform.position));
-            _owner.unitOrders.AddOrder(this);
-            EndOrder();
+            _owner.unitOrders.AddToStart(new MoveToOrder(_resource.transform.position), this);
         }
         public void UpdateOrder(){}
     }

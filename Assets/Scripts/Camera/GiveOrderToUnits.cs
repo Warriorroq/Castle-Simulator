@@ -13,6 +13,8 @@ namespace PlayerCamera
         [SerializeField] private Unit _unitClone;
         [SerializeField] private UnitFraction _myFraction;
         [SerializeField] private UnitFraction _enemyFraction;
+        public void DropResource()
+            => _takedUnits[_myFraction].ForEach(unit => unit.resourcePosition.DropResource());
         public void RecoverOrder()
         {
             foreach (var unit in _takedUnits[_myFraction])

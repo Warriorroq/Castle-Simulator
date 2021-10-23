@@ -4,39 +4,26 @@ namespace UnitSpace
 {
     public class ResourcePosition : MonoBehaviour
     {
-        [SerializeField]private ResourceContainer _resource;
+        [SerializeField] private ResourceContainer _resource;
         [SerializeField] private int _maxWeight = 10;
         public void TakeResource(ResourceContainer resource)
         {
-            if(_resource && resource.resourceData.type == _resource.resourceData.type)
+            if(_resource)
             {
-                AddResources(resource);
-                return;
+                if (resource.resourceType != _resource.resourceType)
+                    DropResource();
             }
-            else
-                DropResource();
             _resource = resource;
             SetResourceParentAndTransform();
         }
         public void DropResource()
         {
-            _resource.ChangeSelectorState(true);
-            var res = _resource;
-            _resource.transform.SetParent(null);
-            _resource = null;
-            res.transform.position = transform.position + Vector3.left;
-        }
-        private void AddResources(ResourceContainer resource)
-        {
-            if(_resource.Amount + resource.Amount > _maxWeight)
+            if(_resource)
             {
-                resource.Amount = _resource.Amount + resource.Amount - _maxWeight;
-                _resource.Amount = _maxWeight;
-            }
-            else
-            {
-                _resource.Amount += resource.Amount;
-                Destroy(resource.gameObject);
+                _resource.ChangeSelectorState(true);
+                _resource.transform.SetParent(null);
+                _resource.transform.position = transform.position + Vector3.left;
+                _resource = null;
             }
         }
         private void SetResourceParentAndTransform()

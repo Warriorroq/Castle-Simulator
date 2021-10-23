@@ -14,8 +14,17 @@ namespace UnitSpace
             => _orders.Clear();
         public void AddOrder(IOrder order)
             => _orders.Enqueue(order);
+        public void StopImmediate()
+            => _currentOrder = null;
         public void StopOrder()
             =>_currentOrder?.EndOrder();
+        public void AddToStart(params IOrder[] tasks)
+        {
+            var lastOrders = _orders;
+            _orders = new Queue<IOrder>(tasks);
+            foreach(var lastOrder in lastOrders)
+                _orders.Enqueue(lastOrder);
+        }
         private void Awake()
         {
             _orders = new Queue<IOrder>();
