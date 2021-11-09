@@ -12,6 +12,5 @@ namespace UnitSpace.Interfaces
         public abstract void StartOrder();
         public abstract void UpdateOrder();
         public abstract void EndOrder();
-        public abstract string GetName();
     }
 }

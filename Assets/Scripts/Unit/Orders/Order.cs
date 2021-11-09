@@ -3,7 +3,6 @@ namespace UnitSpace.Orders
 {
     public abstract class Order : IOrder
     {
-        public virtual string GetName() => GetType().Name;
         protected IOrder.OrderState _state;
         protected Unit _owner;
         public virtual void EndOrder()

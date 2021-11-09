@@ -4,6 +4,7 @@ namespace UnitSpace.Attributes
     {
         public float value;
         public float xpProgressValue;
+        public string Name => GetType().Name;
         protected int _level;
         public Attribute(float value = 1, float xpProgressValue = 0)
         {
@@ -13,5 +14,9 @@ namespace UnitSpace.Attributes
         }
         public virtual void ConnectToUnit(Unit unit){}
         public abstract void LevelUpThis(float value);
+        public virtual void LoadAttribute(AttributesParam param)
+        {
+            value = param.value;
+        }
     }
 }

@@ -16,7 +16,6 @@ namespace UnitSpace
         public UnitSelector unitSelector;
         public ResourcePosition resourcePosition;
         public UnitFraction fraction;
-        public StartUnitParamethers unitParamethers;
         private void Awake()
         {
             attributes = new UnitAttributes(this);
@@ -35,6 +34,12 @@ namespace UnitSpace
             attributes.GetOrCreateAttribute<Speed>();
             attributes.GetOrCreateAttribute<Strenght>();
             attributes.GetOrCreateAttribute<Health>();
+            TryReadParams();
+        }
+        private void TryReadParams()
+        {
+            if(TryGetComponent<LoadParamsToUnit>(out var loadParamsToUnit))
+                loadParamsToUnit.LoadParams();
         }
         private void Start()
         {

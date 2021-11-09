@@ -18,5 +18,10 @@ namespace UnitSpace.Attributes
         {
             return $"Health: | level {_level} | value {value} / {currentHp}";
         }
+        public override void LoadAttribute(AttributesParam param)
+        {
+            value = param.maxValue;
+            currentHp = value;
+        }
     }
 }

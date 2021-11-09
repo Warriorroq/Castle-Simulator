@@ -6,6 +6,16 @@ namespace UnitSpace
     {
         public List<Attribute> attributes;
         private Unit _owner;
+        public Attribute this[string Name]
+        {
+            get
+            {
+                foreach (var param in attributes)
+                    if (param.Name == Name)
+                        return param;
+                return null;
+            }
+        }
         public UnitAttributes(Unit owner)
         {
             _owner = owner;

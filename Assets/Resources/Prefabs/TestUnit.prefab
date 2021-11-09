@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2653403246438682461}
   - component: {fileID: 2653403246438682458}
   - component: {fileID: 2653403246438682459}
+  - component: {fileID: -1749147290494975503}
   m_Layer: 0
   m_Name: TestUnit
   m_TagString: Unit
@@ -142,7 +143,6 @@ MonoBehaviour:
   unitSelector: {fileID: 0}
   resourcePosition: {fileID: 0}
   fraction: 2
-  unitParamethers: {fileID: 0}
 --- !u!114 &2653403246438682458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +179,19 @@ MonoBehaviour:
   doOrder:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-1749147290494975503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653403246438682456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1197a24c41ce80a46b5bf7a05005b514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _load: {fileID: 11400000, guid: 34e486ecbb4f28949a80f501571b3755, type: 2}
 --- !u!1 &2653403246506775328
 GameObject:
   m_ObjectHideFlags: 0

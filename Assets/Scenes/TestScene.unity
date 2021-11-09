@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1565655, g: 0.3199935, b: 0.45587462, a: 1}
+  m_IndirectSpecularColor: {r: 0.0955671, g: 0.19178297, b: 0.27646852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -899,7 +899,6 @@ MonoBehaviour:
   unitSelector: {fileID: 0}
   resourcePosition: {fileID: 0}
   fraction: 0
-  unitParamethers: {fileID: 0}
 --- !u!114 &328220374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2473,7 +2472,6 @@ MonoBehaviour:
   unitSelector: {fileID: 0}
   resourcePosition: {fileID: 0}
   fraction: 0
-  unitParamethers: {fileID: 0}
 --- !u!114 &1307476716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2527,7 +2525,6 @@ MonoBehaviour:
   unitSelector: {fileID: 0}
   resourcePosition: {fileID: 0}
   fraction: 0
-  unitParamethers: {fileID: 0}
 --- !u!114 &1375744464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2828,6 +2825,7 @@ GameObject:
   - component: {fileID: 1518943260}
   - component: {fileID: 1518943261}
   - component: {fileID: 1518943262}
+  - component: {fileID: 1518943263}
   m_Layer: 0
   m_Name: Enemy Base
   m_TagString: Unit
@@ -2946,7 +2944,6 @@ MonoBehaviour:
   unitSelector: {fileID: 1421091197}
   resourcePosition: {fileID: 0}
   fraction: 1
-  unitParamethers: {fileID: 11400000, guid: 7d3514075e94f7d45aa9f08329f76997, type: 2}
 --- !u!114 &1518943260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2997,6 +2994,19 @@ MonoBehaviour:
   doOrder:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1518943263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518943253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1197a24c41ce80a46b5bf7a05005b514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _load: {fileID: 11400000, guid: 7d3514075e94f7d45aa9f08329f76997, type: 2}
 --- !u!1 &1524271079
 GameObject:
   m_ObjectHideFlags: 0
@@ -3309,7 +3319,6 @@ MonoBehaviour:
   unitSelector: {fileID: 0}
   resourcePosition: {fileID: 0}
   fraction: 0
-  unitParamethers: {fileID: 0}
 --- !u!114 &1624870853
 MonoBehaviour:
   m_ObjectHideFlags: 0

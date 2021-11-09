@@ -10,6 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9497e4072d51ba846bfee2ecdc2bd6f5, type: 3}
-  m_Name: MainBase
+  m_Name: Unit
   m_EditorClassIdentifier: 
-  startParams: []
+  startParams:
+  - name: Health
+    value: 10
+    maxValue: 10
+  - name: Strenght
+    value: 4
+    maxValue: 4

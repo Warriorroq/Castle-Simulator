@@ -9,11 +9,6 @@ public class EnemyBase : MonoBehaviour
     private void Start()
     {
         var unit = GetComponent<Unit>();
-        unit.attributes.GetOrCreateAttribute<Health>().value = 100;
-        unit.attributes.GetOrCreateAttribute<Health>().currentHp = 100;
-        unit.attributes.GetOrCreateAttribute<Strenght>().value = 0;
-        unit.attributes.GetOrCreateAttribute<Speed>().value = 0;
-        unit.attributes.GetOrCreateAttribute<Sensitivity>().value = 30;
         InvokeRepeating(nameof(GiveCreateOrder), 1f, 2f);
     }
     private void GiveCreateOrder()
