@@ -16,6 +16,7 @@ namespace UnitSpace
         public UnitSelector unitSelector;
         public ResourcePosition resourcePosition;
         public UnitFraction fraction;
+        public StartUnitParamethers unitParamethers;
         private void Awake()
         {
             attributes = new UnitAttributes(this);

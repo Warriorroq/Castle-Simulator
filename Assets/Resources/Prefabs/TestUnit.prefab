@@ -142,6 +142,7 @@ MonoBehaviour:
   unitSelector: {fileID: 0}
   resourcePosition: {fileID: 0}
   fraction: 2
+  unitParamethers: {fileID: 0}
 --- !u!114 &2653403246438682458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,3 +317,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resource: {fileID: 0}
+  _maxWeight: 10

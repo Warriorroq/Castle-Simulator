@@ -1,38 +1,24 @@
 using System.Collections.Generic;
-using UnitSpace.Interfaces;
 using UnitSpace.Attributes;
 
 namespace UnitSpace.Orders
 {
 
-    public class AttackOrder : IOrder
+    public class AttackOrder : Order
     {
-        private Unit _owner;
         private List<Unit> _targets;
         private Unit _currentTarget;
         private Strenght _strenght;
-        private IOrder.OrderState _state;
         public AttackOrder(IEnumerable<Unit> targets)
         {
             _targets = new List<Unit>(targets);
         }
-        public void EndOrder()
+        public override void SetUnitOwner(Unit owner)
         {
-            _state = IOrder.OrderState.Finished;
-        }
-        public IOrder.OrderState GetState()
-            => _state;
-        public void SetUnitOwner(Unit owner)
-        {
-            _owner = owner;
-            _state = IOrder.OrderState.Ready;
+            base.SetUnitOwner(owner);
             _strenght = owner.attributes.GetOrCreateAttribute<Strenght>();
         }
-        public void StartOrder()
-        {
-            _state = IOrder.OrderState.InProgress;
-        }
-        public void UpdateOrder()
+        public override void UpdateOrder()
         {
             if (!_currentTarget)
             {

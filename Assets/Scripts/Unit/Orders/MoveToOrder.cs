@@ -3,10 +3,8 @@ using UnitSpace.Interfaces;
 using UnitSpace.Attributes;
 namespace UnitSpace.Orders
 {
-    public class MoveToOrder : IOrder
+    public class MoveToOrder : Order
     {
-        private IOrder.OrderState state;
-        private Unit _owner;
         private Speed _ownerSpeed;
         private Vector3 _target;
         private float points;
@@ -14,30 +12,23 @@ namespace UnitSpace.Orders
         {
             _target = target;
         }
-        public void EndOrder()
+        public override void EndOrder()
         {
-            state = IOrder.OrderState.Finished;
+            base.EndOrder();
             _owner.navMeshAgent.isStopped = true;
             _ownerSpeed.xpProgressValue += points;
         }
-        public IOrder.OrderState GetState()
-            => state;
 
-        public void SetUnitOwner(Unit owner)
+        public override void StartOrder()
         {
-            _owner = owner;
             points = Vector3.Distance(_owner.transform.position, _target) * 10;
-        }
-
-        public void StartOrder()
-        {
             _ownerSpeed = _owner.attributes.GetOrCreateAttribute<Speed>();
             _owner.navMeshAgent.speed = _ownerSpeed.value;
             _owner.navMeshAgent.SetDestination(_target);
             _owner.navMeshAgent.isStopped = false;
         }
 
-        public void UpdateOrder()
+        public override void UpdateOrder()
         {
             if (Vector3.Distance(_owner.transform.position, _target) < 1.2f)
                 EndOrder();

@@ -1,32 +1,18 @@
 using UnityEngine;
-using UnitSpace.Interfaces;
 using UnitSpace.Attributes;
 
 namespace UnitSpace.Orders
 {
-    public class RecoverOrder : IOrder
-    {
-        private Unit _owner;
+    public class RecoverOrder : Order
+    {      
         private Health _health;
-        private IOrder.OrderState _state;
         private float _timer;
-        public void EndOrder()
+        public override void SetUnitOwner(Unit owner)
         {
-            _state = IOrder.OrderState.Finished;
-        }
-        public IOrder.OrderState GetState()
-            => _state;
-        public void SetUnitOwner(Unit owner)
-        {
-            _owner = owner;
-            _state = IOrder.OrderState.Ready;
+            base.SetUnitOwner(owner);
             _health = _owner.attributes.GetOrCreateAttribute<Health>();
         }
-        public void StartOrder()
-        {
-            _state = IOrder.OrderState.InProgress;
-        }
-        public void UpdateOrder(){
+        public override void UpdateOrder(){
             if(_timer > 3.5f)
             {
                 Heal();

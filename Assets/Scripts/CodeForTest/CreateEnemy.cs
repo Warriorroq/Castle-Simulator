@@ -4,11 +4,10 @@ using UnitSpace.Orders;
 using UnitSpace;
 using UnitSpace.Enums;
 
-public class CreateEnemy : IOrder
+public class CreateEnemy : Order
 {
     private Unit _owner;
     private Unit _prefab;
-    private IOrder.OrderState _state;
     private UnitFraction _enemyFraction;
     private UnitFraction _fraction;
     public CreateEnemy(Unit prefab, UnitFraction fraction, UnitFraction enemyFraction)
@@ -17,29 +16,20 @@ public class CreateEnemy : IOrder
         _enemyFraction = enemyFraction;
         _fraction = fraction;
     }
-    public void EndOrder()
+    public override void EndOrder()
     {
-        _state = IOrder.OrderState.Finished;
+        base.EndOrder();
         SpawnUnits();
     }
-
-    public IOrder.OrderState GetState()
-        => _state;
-
-    public void SetUnitOwner(Unit owner)
+    public override void StartOrder()
+    {
+        base.StartOrder();
+        EndOrder();
+    }
+    public override void SetUnitOwner(Unit owner)
     {
         _owner = owner;
-        _state = IOrder.OrderState.Ready;
-    }
-
-    public void StartOrder()
-    {
-        _state = IOrder.OrderState.InProgress;
-    }
-
-    public void UpdateOrder()
-    {
-        EndOrder();
+        base.SetUnitOwner(owner);
     }
     private void SpawnUnits()
     {

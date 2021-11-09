@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnitSpace.Interfaces;
 using UnitSpace.Attributes;
 using UnitSpace.Enums;
 namespace UnitSpace.Orders
 {
-    public class ModerateOrder : IOrder
+    public class ModerateOrder : Order
     {
-        private Unit _owner;
-        private IOrder.OrderState _state;
         private Sensitivity _sensitivity;
         private Strenght _strenght;
         private Speed _speed;
@@ -21,29 +17,27 @@ namespace UnitSpace.Orders
             _moderatePosition = moderatePosition;
             _enemyFraction = enemyFraction;
         }
-        public void EndOrder()
+        public override void EndOrder()
         {
             _state = IOrder.OrderState.Finished;
             _owner?.navMeshAgent.Stop();
-        }   
-        public IOrder.OrderState GetState()
-            => _state;
-        public void SetUnitOwner(Unit owner)
+        }
+        public override void SetUnitOwner(Unit owner)
         {
+            base.SetUnitOwner(owner);
             _owner = owner;
             _sensitivity = _owner.attributes.GetOrCreateAttribute<Sensitivity>();
             _strenght = _owner.attributes.GetOrCreateAttribute<Strenght>();
             _speed = _owner.attributes.GetOrCreateAttribute<Speed>();
-            _state = IOrder.OrderState.Ready;
         }
 
-        public void StartOrder()
+        public override void StartOrder()
         {
-            _state = IOrder.OrderState.InProgress;
+            base.StartOrder();
             _owner.navMeshAgent.isStopped = false;
         }
 
-        public void UpdateOrder()
+        public override void UpdateOrder()
         {
             //Debug.Log($"{_target}");
             if (!_target)
