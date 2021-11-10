@@ -39,9 +39,10 @@ namespace PlayerCamera
         public void FollowUnit()
         {
             foreach (var unit in _takedUnits[_myFraction])
-                foreach (var enemy in _takedUnits[_enemyFraction])
-                    unit?.unitOrders.AddOrder(new FollowToOrder(enemy));
-            //To DO: follow nearest enemy;
+            {
+                var nearestUnit = unit.TakeNearest<Unit>(_takedUnits[_enemyFraction]);
+                unit?.unitOrders.AddOrder(new FollowToOrder(nearestUnit));
+            }  
         }
         public void PatrolUnit()
         {
@@ -67,7 +68,8 @@ namespace PlayerCamera
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, float.MaxValue))
             {
-                Instantiate(_unitClone, hit.point + Vector3.up, Quaternion.identity);
+                var unit = Instantiate(_unitClone, hit.point + Vector3.up, Quaternion.identity);
+                TakeUnit(unit, Color.green);
             }
         }
         private void Start()
@@ -86,7 +88,12 @@ namespace PlayerCamera
                 CreateUnit();
         }
 
-        private void TakeUnits(List<Unit> arg0)
+        private void TakeUnit(Unit unit, Color selectorColor)
+        {
+            unit.unitSelector.ChangeSelectorColor(selectorColor);
+            _takedUnits[unit.fraction].Add(unit);
+        }
+        private void TakeUnits(IEnumerable<Unit> arg0)
         {
             ActiveAllUnitsSelectors(Color.white);
             ClearDictionaryValues();
@@ -94,7 +101,7 @@ namespace PlayerCamera
                 _takedUnits[unit.fraction].Add(unit);
             ActiveAllUnitsSelectors(Color.red);
             ActiveFractionUnitsSelectors(_myFraction, Color.green);
-        }       
+        }
         private void ActiveAllUnitsSelectors(Color color)
         {
             foreach (var key in _takedUnits.Keys)

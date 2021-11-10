@@ -51,19 +51,7 @@ namespace UnitSpace.Orders
         }
         private void FindNearestTarget()
         {
-            var minMagnitude = float.MaxValue;
-            foreach(var target in _targets)
-            {
-                if (!target)
-                    continue;
-                var distance = _owner.transform.position - target.transform.position;
-                var distanceMagnitude = distance.sqrMagnitude;
-                if (distanceMagnitude < minMagnitude)
-                {
-                    minMagnitude = distanceMagnitude;
-                    _currentTarget = target;
-                }
-            }
+            _currentTarget = _owner.TakeNearest<Unit>(_targets);
             _targets.Remove(_currentTarget);
         }
         private void GiveDamageAndEXPForAttack()
