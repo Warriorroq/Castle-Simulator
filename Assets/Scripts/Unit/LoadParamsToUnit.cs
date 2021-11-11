@@ -2,7 +2,7 @@ using UnityEngine;
 using UnitSpace;
 public class LoadParamsToUnit : MonoBehaviour
 {
-    private Unit _owner;
+    [SerializeField] private Unit _owner;
     [SerializeField] private StartUnitParamethers _load;
     private void Awake()
     {

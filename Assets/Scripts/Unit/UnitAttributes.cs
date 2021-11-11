@@ -7,7 +7,7 @@ namespace UnitSpace
         public List<Attribute> attributes;
         private Unit _owner;
         public Attribute this[string Name]
-        {
+        {   
             get
             {
                 foreach (var param in attributes)

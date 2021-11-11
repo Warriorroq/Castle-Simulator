@@ -18,15 +18,19 @@ namespace UnitSpace
         public UnitFraction fraction;
         private void Awake()
         {
-            attributes = new UnitAttributes(this);
-            skills = new UnitSkills(this);
+            GetUnitComponents();
+        }
+        protected void GetUnitComponents()
+        {
             TryGetComponent(out unitOrders);
             TryGetComponent(out healthComponent);
             TryGetComponent(out navMeshAgent);
+            attributes = new UnitAttributes(this);
+            skills = new UnitSkills(this);
             resourcePosition = GetComponentInChildren<ResourcePosition>();
             unitSelector = GetComponentInChildren<UnitSelector>();
         }
-        private void CreateStandartAttributes()
+        protected void CreateStandartAttributes()
         {
             attributes.GetOrCreateAttribute<Strenght>();
             attributes.GetOrCreateAttribute<Defence>();
@@ -34,22 +38,12 @@ namespace UnitSpace
             attributes.GetOrCreateAttribute<Speed>();
             attributes.GetOrCreateAttribute<Strenght>();
             attributes.GetOrCreateAttribute<Health>();
-            TryReadParams();
-        }
-        private void TryReadParams()
-        {
-            if(TryGetComponent<LoadParamsToUnit>(out var loadParamsToUnit))
-                loadParamsToUnit.LoadParams();
+            if (TryGetComponent<LoadParamsToUnit>(out var load))
+                load.LoadParams();
         }
         private void Start()
         {
             CreateStandartAttributes();
-            var rand = Random.Range(1, 9);
-            for(int i = 0; i< rand;i++)
-            {
-                skills.AddSkill(new Dash());
-            }
-            skills.AddSkill(new CreateTimeWall());
         }
         private void Update()
         {

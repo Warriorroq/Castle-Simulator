@@ -8,6 +8,7 @@ public class HealthComponent : MonoBehaviour
     public UnityEvent<IteractData> giveIteractData;
     public UnityEvent<IteractData> takeIteractData;
     public UnityEvent destroyUnit;
+    [SerializeField] private float _reloadTime = 1;
     private Unit _owner;
     private Health _health;
     private ReadyState attackState;
@@ -26,11 +27,14 @@ public class HealthComponent : MonoBehaviour
         => attackState == ReadyState.Ready;
     public void GiveDamage(Unit target)
     {
-        attackState = ReadyState.NonReady;
-        Invoke(nameof(Reload), 1f);
-        var data = new IteractData();
-        giveIteractData?.Invoke(data);
-        target.healthComponent.TakeDamage(data);
+        if (attackState == ReadyState.Ready)
+        {
+            attackState = ReadyState.NonReady;
+            var data = new IteractData();
+            Invoke(nameof(Reload), _reloadTime);
+            giveIteractData?.Invoke(data);
+            target.healthComponent.TakeDamage(data);
+        }
     }
     private void TakeDamage(IteractData data)
     {

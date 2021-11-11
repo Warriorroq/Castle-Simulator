@@ -36,7 +36,7 @@ public class CreateEnemy : Order
         var randomVector = new Vector3(Random.Range(1, 2), 1, Random.Range(-5, 5));
         var minion = Object.Instantiate(_prefab, _owner.transform.position + randomVector, Quaternion.identity) as Unit;
         minion.fraction = _fraction;
-        minion.unitOrders.AddOrder(new ModerateOrder(_owner.transform.position, _enemyFraction));
+        minion.unitOrders.AddOrder(new ModerateOrder(_owner.transform.position, _enemyFraction, UnitFraction.Buildings));
         minion.GetComponent<MeshRenderer>().material.color = Color.black;
     }
 }

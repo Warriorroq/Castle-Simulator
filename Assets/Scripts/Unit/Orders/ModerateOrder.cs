@@ -2,6 +2,7 @@ using UnityEngine;
 using UnitSpace.Interfaces;
 using UnitSpace.Attributes;
 using UnitSpace.Enums;
+using System.Collections.Generic;
 namespace UnitSpace.Orders
 {
     public class ModerateOrder : Order
@@ -11,11 +12,11 @@ namespace UnitSpace.Orders
         private Speed _speed;
         private Unit _target;
         private Vector3 _moderatePosition;
-        private UnitFraction _enemyFraction;
-        public ModerateOrder(Vector3 moderatePosition, UnitFraction enemyFraction)
+        private List<UnitFraction> _enemyFraction;
+        public ModerateOrder(Vector3 moderatePosition, params UnitFraction[] enemyFraction)
         {
             _moderatePosition = moderatePosition;
-            _enemyFraction = enemyFraction;
+            _enemyFraction = new List<UnitFraction>(enemyFraction);
         }
         public override void EndOrder()
         {
@@ -92,6 +93,6 @@ namespace UnitSpace.Orders
             }
         }
         private bool TargetIsNormal(Unit target)
-            => target != _owner && target.fraction == _enemyFraction;
+            => target != _owner && _enemyFraction.Contains(target.fraction);
     }
 }
