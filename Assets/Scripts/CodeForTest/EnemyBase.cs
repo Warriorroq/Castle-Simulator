@@ -14,6 +14,6 @@ public class EnemyBase : MonoBehaviour
     private void GiveCreateOrder()
     {
         TryGetComponent(out Unit unit);
-        unit.unitOrders.AddOrder(new CreateEnemy(_prefab, unit.fraction, _enemy));
+        unit?.unitOrders.AddOrder(new CreateEnemy(_prefab, unit.fraction, _enemy));
     }
 }

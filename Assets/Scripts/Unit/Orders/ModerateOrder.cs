@@ -38,9 +38,8 @@ namespace UnitSpace.Orders
             _owner.navMeshAgent.isStopped = false;
         }
 
-        public override void UpdateOrder()
+        protected override void OnUpdateOrder()
         {
-            //Debug.Log($"{_target}");
             if (!_target)
             {
                 FindTarget();

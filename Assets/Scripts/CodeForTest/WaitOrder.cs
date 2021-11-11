@@ -17,7 +17,7 @@ namespace UnitSpace.Orders
         }
         public IOrder.OrderState GetState()
             => _state;
-        public override void UpdateOrder()
+        protected override void OnUpdateOrder()
         {
             if (_timer > time)
                 EndOrder();

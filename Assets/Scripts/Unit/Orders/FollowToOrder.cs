@@ -29,9 +29,9 @@ namespace UnitSpace.Orders
             _owner.navMeshAgent.speed = _ownerSpeed.value;
             _owner.navMeshAgent.isStopped = false;
         }
-        public override void UpdateOrder()
+        protected override void OnUpdateOrder()
         {
-            if(!_target)
+            if (!_target)
             {
                 EndOrder();
                 return;

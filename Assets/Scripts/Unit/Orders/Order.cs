@@ -21,6 +21,13 @@ namespace UnitSpace.Orders
             _state = IOrder.OrderState.InProgress;
         }
 
-        public virtual void UpdateOrder(){}
+        public void UpdateOrder(){
+            if (!_owner){
+                EndOrder();
+                return;
+            }
+            OnUpdateOrder();
+        }
+        protected virtual void OnUpdateOrder(){}
     }
 }

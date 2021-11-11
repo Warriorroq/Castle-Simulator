@@ -28,7 +28,7 @@ namespace UnitSpace.Orders
             _owner.navMeshAgent.isStopped = false;
         }
 
-        public override void UpdateOrder()
+        protected override void OnUpdateOrder()
         {
             if (Vector3.Distance(_owner.transform.position, _target) < 1.2f)
                 EndOrder();

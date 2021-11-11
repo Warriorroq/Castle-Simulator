@@ -11,6 +11,9 @@ namespace PlayerCamera
     {
         private Dictionary<UnitFraction, List<Unit>> _takedUnits;
         [SerializeField] private Unit _unitClone;
+        [SerializeField] private Unit _enemyBaseClone;
+        [SerializeField] private Unit _cannonClone;
+        [SerializeField] private Unit _mineClone;
         [SerializeField] private UnitFraction _myFraction;
         [SerializeField] private UnitFraction _enemyFraction;
         public void DropResource()
@@ -63,13 +66,14 @@ namespace PlayerCamera
             if (Physics.Raycast(ray, out var hit, float.MaxValue))
                 _takedUnits[_myFraction].ForEach(unit => unit.unitOrders.AddOrder(new MoveToOrder(hit.point)));
         }
-        private void CreateUnit()
+        private void CreateUnit(Unit unit)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, float.MaxValue))
             {
-                var unit = Instantiate(_unitClone, hit.point + Vector3.up, Quaternion.identity);
-                TakeUnit(unit, Color.green);
+                var unitClone = Instantiate(unit, hit.point + Vector3.up, Quaternion.identity);
+                if(unitClone.fraction == _myFraction)
+                    TakeUnit(unitClone, Color.green);
             }
         }
         private void Start()
@@ -85,7 +89,19 @@ namespace PlayerCamera
             if (Input.GetMouseButtonDown(1))
                 MoveToPoint();
             if (Input.GetKeyDown(KeyCode.Space))
-                CreateUnit();
+                CreateUnit(_unitClone);
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                foreach (var i in _takedUnits.Keys)
+                    foreach (var j in _takedUnits[i])
+                        Destroy(j.gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.B))
+                CreateUnit(_enemyBaseClone);
+            if (Input.GetKeyDown(KeyCode.C))
+                CreateUnit(_cannonClone);
+            if (Input.GetKeyDown(KeyCode.M))
+                CreateUnit(_mineClone);
         }
 
         private void TakeUnit(Unit unit, Color selectorColor)

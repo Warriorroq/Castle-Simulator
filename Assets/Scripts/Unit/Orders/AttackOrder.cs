@@ -18,7 +18,7 @@ namespace UnitSpace.Orders
             base.SetUnitOwner(owner);
             _strenght = owner.attributes.GetOrCreateAttribute<Strenght>();
         }
-        public override void UpdateOrder()
+        protected override void OnUpdateOrder()
         {
             if (!_currentTarget)
             {

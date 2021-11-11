@@ -12,8 +12,8 @@ namespace UnitSpace.Orders
             base.SetUnitOwner(owner);
             _health = _owner.attributes.GetOrCreateAttribute<Health>();
         }
-        public override void UpdateOrder(){
-            if(_timer > 3.5f)
+        protected override void OnUpdateOrder(){
+            if (_timer > 3.5f)
             {
                 Heal();
                 _timer = 0;
