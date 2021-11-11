@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using UnitSpace.Enums;
 using UnityEngine;
 
 namespace UnitSpace
@@ -7,6 +7,7 @@ namespace UnitSpace
     public class Mine : MonoBehaviour
     {
         [SerializeField] private Unit _owner;
+        [SerializeField] private List<UnitFraction> _triggerFractions;
         private void Awake()
         {
             _owner = GetComponent<Unit>();
@@ -15,8 +16,11 @@ namespace UnitSpace
         {
             if(collision.transform.TryGetComponent<Unit>(out var target))
             {
-                _owner.healthComponent.GiveDamage(target);
-                Destroy(gameObject);
+                if(_triggerFractions.Contains(target.fraction))
+                {
+                    _owner.healthComponent.GiveDamage(target);
+                    Destroy(gameObject);
+                }
             }
         }
     }
