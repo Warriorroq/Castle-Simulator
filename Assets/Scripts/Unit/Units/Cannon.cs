@@ -38,9 +38,9 @@ namespace UnitSpace
                 return;
             lastRotation = _head.transform.rotation;
             _head.transform.LookAt(_target.transform.position);
-            if (_head.transform.rotation.Approximately(lastRotation, lastRotation.DegreeToApproximatelyThirdValue(15)))
+            if (_head.transform.rotation.Approximately(lastRotation, lastRotation.DegreeToApproximatelyThirdValue(20)))
                 _owner.healthComponent.GiveDamage(_target);
-            _head.transform.rotation = Quaternion.Lerp(lastRotation, _head.transform.rotation, 5f * Time.deltaTime);
+            _head.transform.rotation = Quaternion.Lerp(lastRotation, _head.transform.rotation, 7f * Time.deltaTime);
         }
         private void FindTarget()
         {

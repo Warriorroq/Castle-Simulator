@@ -40,7 +40,7 @@ namespace UnitSpace.Orders
         private void AttackTarget()
         {
             var distance = _owner.transform.position - _currentTarget.transform.position;
-            if (distance.sqrMagnitude < 2)
+            if (distance.sqrMagnitude <= 3)
                 GiveDamageAndEXPForAttack();
             else
             {

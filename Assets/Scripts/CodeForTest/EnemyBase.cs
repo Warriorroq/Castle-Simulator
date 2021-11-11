@@ -9,7 +9,7 @@ public class EnemyBase : MonoBehaviour
     private void Start()
     {
         var unit = GetComponent<Unit>();
-        InvokeRepeating(nameof(GiveCreateOrder), 1f, 2f);
+        InvokeRepeating(nameof(GiveCreateOrder), 1f, 1.22f);
     }
     private void GiveCreateOrder()
     {

@@ -17,7 +17,7 @@ MonoBehaviour:
     value: 30
     maxValue: 30
   - name: Strenght
-    value: 15
+    value: 16
     maxValue: 0
   - name: Speed
     value: 0

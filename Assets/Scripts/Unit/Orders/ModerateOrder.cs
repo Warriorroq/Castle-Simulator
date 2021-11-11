@@ -65,7 +65,7 @@ namespace UnitSpace.Orders
         }
         private void AttackTarget(Vector3 distance)
         {
-            if (distance.sqrMagnitude < 2f && _owner.healthComponent.IsReadyToAttack())
+            if (distance.sqrMagnitude < 3f && _owner.healthComponent.IsReadyToAttack())
             {
                 _owner.healthComponent.GiveDamage(_target);
                 _strenght.xpProgressValue += 10;

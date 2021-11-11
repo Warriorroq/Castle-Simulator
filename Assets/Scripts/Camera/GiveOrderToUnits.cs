@@ -99,7 +99,6 @@ namespace PlayerCamera
             ClearDictionaryValues();
             foreach(var unit in arg0)
                 _takedUnits[unit.fraction].Add(unit);
-            Debug.Log(GetInfoAboutDictionary());
             ActiveAllUnitsSelectors(Color.red);
             ActiveFractionUnitsSelectors(_myFraction, Color.green);
             ActiveFractionUnitsSelectors(UnitFraction.Buildings, Color.green);
