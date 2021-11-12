@@ -3,7 +3,7 @@ using UnitSpace.Enums;
 using UnityEngine;
 namespace Resource
 {
-    public class ResourceContainer : MonoBehaviour
+    public class ResourceObject : MonoBehaviour
     {
         public bool IsAvaliable => transform.parent == null;
         public ResourceType resourceType;
@@ -11,8 +11,8 @@ namespace Resource
         private Unit _owner;
         public void ChangeSelectorState(bool state)
         {
-            _owner.unitSelector.ChangeSelectorColor(Color.white);
-            _owner.unitSelector.gameObject.SetActive(state);
+            _owner?.unitSelector.ChangeSelectorColor(Color.white);
+            _owner?.unitSelector.gameObject.SetActive(state);
         }
         private void Start()
         {

@@ -25,6 +25,16 @@ public class HealthComponent : MonoBehaviour
     }
     public bool IsReadyToAttack()
         => attackState == ReadyState.Ready;
+    public bool CanUseStateAndReloadIt()
+    {
+        if (attackState == ReadyState.Ready)
+        {
+            attackState = ReadyState.NonReady;
+            Invoke(nameof(Reload), _reloadTime);
+            return true;
+        }
+        return false;
+    }
     public void GiveDamage(Unit target)
     {
         if (attackState == ReadyState.Ready)

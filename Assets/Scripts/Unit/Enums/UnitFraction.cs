@@ -6,6 +6,7 @@ namespace UnitSpace.Enums
         Void = 1,
         Core = 2,
         Buildings = 3,
-        Resources = 4
+        Resources = 4,
+        ResourceMine = 5
     }
 }

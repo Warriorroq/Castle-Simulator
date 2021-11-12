@@ -4,7 +4,7 @@ namespace UnitSpace.Orders
 {
     public class PickUpResource : Order
     {
-        private ResourceContainer _resource;
+        private ResourceObject _resource;
         public PickUpResource(Unit resource)
         {
             resource.TryGetComponent(out _resource);

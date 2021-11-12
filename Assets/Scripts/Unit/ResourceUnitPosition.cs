@@ -2,11 +2,12 @@ using Resource;
 using UnityEngine;
 namespace UnitSpace
 {
-    public class ResourcePosition : MonoBehaviour
+    public class ResourceUnitPosition : MonoBehaviour
     {
-        [SerializeField] private ResourceContainer _resource;
+        public bool HasCurrency => _resource;
+        [SerializeField] private ResourceObject _resource;
         [SerializeField] private int _maxWeight = 10;
-        public void TakeResource(ResourceContainer resource)
+        public void TakeResource(ResourceObject resource)
         {
             if(_resource)
             {

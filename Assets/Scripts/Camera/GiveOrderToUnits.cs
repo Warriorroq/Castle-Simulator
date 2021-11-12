@@ -60,6 +60,14 @@ namespace PlayerCamera
             foreach (var unit in _takedUnits[_myFraction])
                 unit?.unitOrders.AddOrder(new AttackOrder(_takedUnits[_enemyFraction]));
         }
+        public void MineResource()
+        {
+            foreach (var unit in _takedUnits[_myFraction])
+            {
+                var nearest = unit.TakeNearest<ResourceMineContainer>(_takedUnits[UnitFraction.ResourceMine]);
+                unit?.unitOrders.AddOrder(new MineResource(nearest));
+            }
+        }
         private void MoveToPoint()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
