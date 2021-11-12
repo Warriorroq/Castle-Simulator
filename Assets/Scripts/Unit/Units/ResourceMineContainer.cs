@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Resource;
 namespace UnitSpace
 {
@@ -14,6 +12,10 @@ namespace UnitSpace
             if (_resourceCount == 0)
                 Destroy(gameObject);
             return Instantiate(_prefab, transform.position, transform.rotation);
+        }
+        public override string ToString()
+        {
+            return $"resource: {_resourceCount} | type: {_prefab.resourceType}";
         }
     }
 }

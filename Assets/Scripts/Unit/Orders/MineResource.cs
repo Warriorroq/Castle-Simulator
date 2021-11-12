@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-namespace UnitSpace.Orders
+﻿namespace UnitSpace.Orders
 {
     public class MineResource : Order
     {
         private ResourceMineContainer _target;
         private HealthComponent _healthComponent;
-        protected Vector3 _startPos;
+        private MoveToOrder _moveOrder;
         public MineResource(ResourceMineContainer resource)
         {
             _target = resource;
@@ -14,7 +13,8 @@ namespace UnitSpace.Orders
         {
             base.SetUnitOwner(owner);
             _healthComponent = _owner.GetComponent<HealthComponent>();
-            _startPos = _owner.transform.position;
+            if(_moveOrder is null)
+                _moveOrder = new MoveToOrder(_owner.transform.position);
         }
         protected override void OnUpdateOrder()
         {
@@ -38,7 +38,7 @@ namespace UnitSpace.Orders
             }
             if (!_owner.resourcePosition.HasCurrency)
             {
-                _owner.unitOrders.AddOrder(new MoveToOrder(_startPos));
+                _owner.unitOrders.AddOrder(_moveOrder);
                 _owner.unitOrders.AddOrder(new DropResource());
                 _owner.unitOrders.AddOrder(this);
             }

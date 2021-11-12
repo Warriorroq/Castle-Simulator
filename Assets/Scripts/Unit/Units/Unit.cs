@@ -49,5 +49,11 @@ namespace UnitSpace
         {
             skills.UpdateSkills(Time.deltaTime);
         }
+        public override string ToString()
+        {
+            LevelingUpByAttributes.GetInstance().CountUnitTotalExp(this, out var exp);
+            return $"attributes: \n {attributes} \n skills: \n {skills}  \n exp is: {exp}";
+        }
+        
     }
 }

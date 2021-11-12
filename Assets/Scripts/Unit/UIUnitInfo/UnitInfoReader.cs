@@ -28,9 +28,8 @@ public class UnitInfoReader : MonoBehaviour
         if (_takedUnit)
         {
             _createSkillButtons.Create(_takedUnit);
-            LevelingUpByAttributes.GetInstance().CountUnitTotalExp(_takedUnit, out var exp);
             _unitName.text = _takedUnit.name;
-            _unitInfo.text = $"attributes: \n {_takedUnit.attributes} \n skills: \n {_takedUnit.skills}  \n exp is: {exp}";
+            _unitInfo.text = _takedUnit.ToString();
         }
         else
             ClearInformation();

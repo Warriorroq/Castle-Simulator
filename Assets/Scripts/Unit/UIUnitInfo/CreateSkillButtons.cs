@@ -11,6 +11,8 @@ public class CreateSkillButtons : MonoBehaviour
     {
         Clear();
         var i = 0;
+        if (unit.skills is null)
+            return;
         foreach(var skill in unit.skills.skills)
         {
             var prefab = Instantiate(_prefab,transform);
