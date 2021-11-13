@@ -10,10 +10,7 @@ namespace UnitSpace
         public void TakeResource(ResourceObject resource)
         {
             if(_resource)
-            {
-                if (resource.resourceType != _resource.resourceType)
-                    DropResource();
-            }
+                DropResourceFromHierarchy();
             _resource = resource;
             SetResourceParentAndTransform();
         }

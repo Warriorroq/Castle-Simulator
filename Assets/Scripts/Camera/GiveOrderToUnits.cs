@@ -65,7 +65,7 @@ namespace PlayerCamera
             foreach (var unit in _takedUnits[_myFraction])
             {
                 var nearestMine = unit.TakeNearest<ResourceMineContainer>(_takedUnits[UnitFraction.ResourceMine]);
-                var nearestSender = unit.TakeNearest<ResourceSender>(_takedUnits[UnitFraction.Buildings]);
+                var nearestSender = nearestMine.TakeNearest<ResourceSender>(_takedUnits[UnitFraction.Buildings]);
                 unit?.unitOrders.AddOrder(new MineResource(nearestMine, nearestSender));
             }
         }
@@ -111,11 +111,6 @@ namespace PlayerCamera
                 CreateUnit(_cannonClone);
             if (Input.GetKeyDown(KeyCode.M))
                 CreateUnit(_mineClone);
-        }
-
-        public void TakeUnit()
-        {
-
         }
         private void TakeUnit(Unit unit, Color selectorColor)
         {

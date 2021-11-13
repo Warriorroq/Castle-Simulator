@@ -34,7 +34,7 @@ namespace UnitSpace.Orders
                 _owner.unitOrders.AddOrder(this);
                 EndOrder();
             }
-            else if(distance.sqrMagnitude > 3 || !_owner.resourcePosition.HasCurrency)
+            else if(distance.sqrMagnitude > 3)
             {
                 EndOrder();
                 _owner.unitOrders.AddOrder(new MoveToOrder(_target.transform.position));

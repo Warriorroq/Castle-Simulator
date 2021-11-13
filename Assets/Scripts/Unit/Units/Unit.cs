@@ -54,9 +54,5 @@ namespace UnitSpace
             LevelingUpByAttributes.GetInstance().CountUnitTotalExp(this, out var exp);
             return $"attributes: \n {attributes} \n skills: \n {skills}  \n exp is: {exp}";
         }
-        public void OnMouseDown()
-        {
-            Camera.main.GetComponent<PlayerCamera.GiveOrderToUnits>();
-        }
     }
 }
