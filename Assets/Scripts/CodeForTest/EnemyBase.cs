@@ -1,19 +1,21 @@
 using UnityEngine;
-using UnitSpace;
-using UnitSpace.Attributes;
+using UnitSpace.Orders;
 using UnitSpace.Enums;
-public class EnemyBase : MonoBehaviour
+namespace UnitSpace
 {
-    [SerializeField] private Unit _prefab;
-    [SerializeField] private UnitFraction _enemy;
-    private void Start()
+    public class EnemyBase : MonoBehaviour
     {
-        var unit = GetComponent<Unit>();
-        InvokeRepeating(nameof(GiveCreateOrder), 1f, 1.22f);
-    }
-    private void GiveCreateOrder()
-    {
-        TryGetComponent(out Unit unit);
-        unit?.unitOrders.AddOrder(new CreateEnemy(_prefab, unit.fraction, _enemy));
+        [SerializeField] private Unit _prefab;
+        [SerializeField] private UnitFraction _enemy;
+        private void Start()
+        {
+            var unit = GetComponent<Unit>();
+            InvokeRepeating(nameof(GiveCreateOrder), 1f, 1.22f);
+        }
+        private void GiveCreateOrder()
+        {
+            TryGetComponent(out Unit unit);
+            unit?.unitOrders.AddOrder(new CreateEnemy(_prefab, unit.fraction, _enemy));
+        }
     }
 }

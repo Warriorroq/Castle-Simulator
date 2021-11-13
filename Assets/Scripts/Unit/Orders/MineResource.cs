@@ -1,20 +1,21 @@
-﻿namespace UnitSpace.Orders
+﻿using UnityEngine;
+
+namespace UnitSpace.Orders
 {
     public class MineResource : Order
     {
         private ResourceMineContainer _target;
+        private ResourceSender _sender;
         private HealthComponent _healthComponent;
-        private MoveToOrder _moveOrder;
-        public MineResource(ResourceMineContainer resource)
+        public MineResource(ResourceMineContainer resource, ResourceSender resourceSender)
         {
             _target = resource;
+            _sender = resourceSender;
         }
         public override void SetUnitOwner(Unit owner)
         {
             base.SetUnitOwner(owner);
             _healthComponent = _owner.GetComponent<HealthComponent>();
-            if(_moveOrder is null)
-                _moveOrder = new MoveToOrder(_owner.transform.position);
         }
         protected override void OnUpdateOrder()
         {
@@ -28,21 +29,17 @@
             {
                 var resource = _target.GetResource();
                 _owner.resourcePosition.TakeResource(resource);
+                _owner.unitOrders.AddOrder(new MoveToOrder(_sender.transform.position));
+                _owner.unitOrders.AddOrder(new GiveResourceToSender(_sender));
+                _owner.unitOrders.AddOrder(this);
                 EndOrder();
             }
-            else if(distance.sqrMagnitude > 3 || _owner.resourcePosition.HasCurrency)
+            else if(distance.sqrMagnitude > 3 || !_owner.resourcePosition.HasCurrency)
             {
                 EndOrder();
                 _owner.unitOrders.AddOrder(new MoveToOrder(_target.transform.position));
                 _owner.unitOrders.AddOrder(this);
             }
-            if (!_owner.resourcePosition.HasCurrency)
-            {
-                _owner.unitOrders.AddOrder(_moveOrder);
-                _owner.unitOrders.AddOrder(new DropResource());
-                _owner.unitOrders.AddOrder(this);
-            }
-
         }
     }
 }

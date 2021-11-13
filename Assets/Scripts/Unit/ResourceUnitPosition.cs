@@ -17,9 +17,16 @@ namespace UnitSpace
             _resource = resource;
             SetResourceParentAndTransform();
         }
-        public void DropResource()
+        public void DropResource() 
+            => DropResourceFromHierarchy();
+        public void DropResource(out ResourceObject temp)
         {
-            if(_resource)
+            temp = _resource;
+            DropResourceFromHierarchy();
+        }
+        private void DropResourceFromHierarchy()
+        {
+            if (_resource)
             {
                 _resource.ChangeSelectorState(true);
                 _resource.transform.SetParent(null);

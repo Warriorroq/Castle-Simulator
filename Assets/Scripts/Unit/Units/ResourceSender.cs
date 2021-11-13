@@ -1,17 +1,21 @@
 using UnityEngine;
 using Resource;
 using System.Collections.Generic;
+using System;
 
-public class ResourceSender : MonoBehaviour
+namespace UnitSpace
 {
-    private PlayerResources _playerResources;
-    private void Awake()
+    public class ResourceSender : MonoBehaviour
     {
-        _playerResources = Camera.main.GetComponent<PlayerResources>();
-    }
-    public void Send(ResourceObject resourceObject)
-    {
-        _playerResources.TakeResources(resourceObject.resourceType, resourceObject.Amount);
-        Destroy(resourceObject);
+        private PlayerResources _playerResources;
+        private void Awake()
+        {
+            _playerResources = Camera.main.GetComponent<PlayerResources>();
+        }
+        public void SendResource(ResourceObject resourceObject)
+        {
+            _playerResources.TakeResources(resourceObject.resourceType, resourceObject.Amount);
+            Destroy(resourceObject.gameObject);
+        }
     }
 }
