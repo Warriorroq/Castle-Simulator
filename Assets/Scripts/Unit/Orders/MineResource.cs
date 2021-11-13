@@ -15,6 +15,7 @@ namespace UnitSpace.Orders
         public override void SetUnitOwner(Unit owner)
         {
             base.SetUnitOwner(owner);
+            _owner.unitOrders.ClearOrders();
             _healthComponent = _owner.GetComponent<HealthComponent>();
         }
         protected override void OnUpdateOrder()
