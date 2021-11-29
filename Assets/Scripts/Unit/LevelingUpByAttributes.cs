@@ -14,6 +14,7 @@ namespace UnitSpace
         public void LevelUp(Attribute attribute)
         {
             attribute.LevelUp(1);
+            attribute.SetExp(0);
         }
         private void LevelUpSkillsIn(Unit unit)
         {

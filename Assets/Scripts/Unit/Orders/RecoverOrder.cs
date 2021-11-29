@@ -15,9 +15,10 @@ namespace UnitSpace.Orders
             _recovery = _owner.attributes.GetOrCreateAttribute<Recovery>();
         }
         protected override void OnUpdateOrder(){
-            if (_timer > 0.5f)
+            if (_timer > 0.5f && !_healthComponent.HealthIsFullHealed)
             {
                 _healthComponent.HealthHeal(_recovery.value);
+                _recovery.GiveExp(_recovery.value * 10);
                 _timer = 0;
             }
             _timer += Time.deltaTime;

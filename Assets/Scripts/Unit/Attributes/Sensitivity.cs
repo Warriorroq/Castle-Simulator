@@ -12,6 +12,6 @@ namespace UnitSpace.Attributes
             _level++;
         }
         public override string ToString()
-            => $"Sensitivity: | level {_level} | value {value}";
+            => $"Sensitivity: | level {_level} | value {value} {base.ToString()}";
     }
 }

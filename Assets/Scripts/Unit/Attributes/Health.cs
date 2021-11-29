@@ -4,6 +4,7 @@ namespace UnitSpace.Attributes
     {
         public float currentHp;
         public bool IsOverHealed => currentHp > value;
+        public bool IsFullHealed => currentHp >= value;
         public Health()
         {
             value = 10;
@@ -22,7 +23,7 @@ namespace UnitSpace.Attributes
         }
         public override string ToString()
         {
-            return $"Health: | level {_level} | value {value} / {currentHp}";
+            return $"Health: | level {_level} | value {value} / {currentHp} {base.ToString()}";
         }
         public override void LoadAttribute(AttributesParam param)
         {

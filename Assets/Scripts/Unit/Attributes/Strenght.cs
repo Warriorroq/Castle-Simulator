@@ -21,7 +21,7 @@ namespace UnitSpace.Attributes
         }
         public override string ToString()
         {
-            return $"Strenght: | level {_level} | value {value}";
+            return $"Strenght: | level {_level} | value {value} {base.ToString()}";
         }
     }
 }

@@ -13,7 +13,7 @@ namespace UnitSpace.Attributes
         }
         public override string ToString()
         {
-            return $"Speed: | level {_level} | value {value}";
+            return $"Speed: | level {_level} | value {value} {base.ToString()}";
         }
     }
 }

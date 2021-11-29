@@ -42,7 +42,7 @@ namespace UnitSpace.Orders
                 EndOrder();
                 return;
             }
-            SetDestinationByDistanceChange(2f);
+            SetDestinationByDistanceChange(_iteractDistance.value);
             var distance = _owner.transform.position - _target.position;
             if (distance.sqrMagnitude < _iteractDistance.value)
                 EndOrder();

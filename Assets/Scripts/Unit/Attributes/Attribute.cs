@@ -18,6 +18,7 @@ namespace UnitSpace.Attributes
             if (xpProgressValue >= 1000)
                 LevelingUpByAttributes.GetInstance().LevelUp(this);
         }
+        public void SetExp(float value) => xpProgressValue = value;
         public virtual void ConnectToUnit(Unit unit){}
         public abstract void LevelUp(float value);
         public virtual void LoadAttribute(AttributesParam param)

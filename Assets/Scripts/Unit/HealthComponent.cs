@@ -10,6 +10,7 @@ public class HealthComponent : MonoBehaviour
     public UnityEvent<IteractData> takeIteractData;
     public UnityEvent destroyUnit;
     public bool HealthIsOverHealed => _health.IsOverHealed;
+    public bool HealthIsFullHealed => _health.IsFullHealed;
     [SerializeField] private float _reloadTime = 1;
     private Unit _owner;
     private Health _health;
