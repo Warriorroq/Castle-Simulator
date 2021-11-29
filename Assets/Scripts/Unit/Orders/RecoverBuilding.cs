@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnitSpace.Attributes;
 using UnityEngine;
 
 namespace UnitSpace.Orders
@@ -18,7 +19,8 @@ namespace UnitSpace.Orders
         public override void StartOrder()
         {
             var vector = _building.transform.position - _owner.transform.position;
-            if(vector.sqrMagnitude > 3)
+            var iteractDistance = _owner.attributes.GetOrCreateAttribute<IteractDistance>();
+            if (vector.sqrMagnitude > iteractDistance.value)
             {
                 _owner.unitOrders.AddToStart(new MoveToOrder(_building.transform.position));
                 EndOrder();

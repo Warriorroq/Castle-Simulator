@@ -5,6 +5,7 @@ namespace UnitSpace.Orders
 {
     public class MoveToOrder : Order
     {
+        private IteractDistance _iteractDistance;
         private Speed _ownerSpeed;
         private Vector3 _target;
         private float points;
@@ -22,6 +23,7 @@ namespace UnitSpace.Orders
         public override void StartOrder()
         {
             points = Vector3.Distance(_owner.transform.position, _target) * 10;
+            _iteractDistance = _owner.attributes.GetOrCreateAttribute<IteractDistance>();
             _ownerSpeed = _owner.attributes.GetOrCreateAttribute<Speed>();
             _owner.navMeshAgent.speed = _ownerSpeed.value;
             _owner.navMeshAgent.SetDestination(_target);
@@ -30,7 +32,7 @@ namespace UnitSpace.Orders
 
         protected override void OnUpdateOrder()
         {
-            if (Vector3.Distance(_owner.transform.position, _target) < 1.2f)
+            if (Vector3.Distance(_owner.transform.position, _target) < _iteractDistance.value)
             {
                 EndOrder();
             }

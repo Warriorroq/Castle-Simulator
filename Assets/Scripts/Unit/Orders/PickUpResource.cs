@@ -1,5 +1,7 @@
 using UnitSpace.Interfaces;
 using Resource;
+using UnitSpace.Attributes;
+
 namespace UnitSpace.Orders
 {
     public class PickUpResource : Order
@@ -17,8 +19,9 @@ namespace UnitSpace.Orders
         public override void StartOrder()
         {
             base.StartOrder();
+            var iteractDistance = _owner.attributes.GetOrCreateAttribute<IteractDistance>();
             var distance = _owner.transform.position - _resource.transform.position;
-            if(distance.sqrMagnitude > 3f && _resource.IsAvaliable)
+            if(distance.sqrMagnitude > iteractDistance.value && _resource.IsAvaliable)
             {
                 _owner.unitOrders.StopImmediate();
                 MoveToResourceAlgorithm();

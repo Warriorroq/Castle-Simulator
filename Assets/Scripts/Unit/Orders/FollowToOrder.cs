@@ -8,8 +8,14 @@ namespace UnitSpace.Orders
         private Transform _target;
         private Vector3 _lastTargetPosition;
         private Speed _ownerSpeed;
+        private IteractDistance _iteractDistance;
         public FollowToOrder(Transform target) {
             _target = target;
+        }
+        public override void SetUnitOwner(Unit owner)
+        {
+            base.SetUnitOwner(owner);
+            _iteractDistance = owner.attributes.GetOrCreateAttribute<IteractDistance>();
         }
         public override void EndOrder()
         {
@@ -38,7 +44,7 @@ namespace UnitSpace.Orders
             }
             SetDestinationByDistanceChange(2f);
             var distance = _owner.transform.position - _target.position;
-            if (distance.sqrMagnitude < 2f)
+            if (distance.sqrMagnitude < _iteractDistance.value)
                 EndOrder();
 
             _owner.navMeshAgent.speed = _ownerSpeed.value;

@@ -9,6 +9,7 @@ namespace UnitSpace.Orders
     {
         private Sensitivity _sensitivity;
         private Strenght _strenght;
+        private IteractDistance _iteractDistance;
         private Speed _speed;
         private Unit _target;
         private Vector3 _moderatePosition;
@@ -29,6 +30,7 @@ namespace UnitSpace.Orders
             _owner = owner;
             _sensitivity = _owner.attributes.GetOrCreateAttribute<Sensitivity>();
             _strenght = _owner.attributes.GetOrCreateAttribute<Strenght>();
+            _iteractDistance = owner.attributes.GetOrCreateAttribute<IteractDistance>();
             _speed = _owner.attributes.GetOrCreateAttribute<Speed>();
         }
 
@@ -56,7 +58,7 @@ namespace UnitSpace.Orders
         }
         private void MoveToTarget(Vector3 distance)
         {
-            if (distance.sqrMagnitude > 2f)
+            if (distance.sqrMagnitude > _iteractDistance.value)
             {
                 _owner.navMeshAgent.SetDestination(_target.transform.position);
                 _owner.navMeshAgent.speed = _speed.value;
@@ -64,7 +66,7 @@ namespace UnitSpace.Orders
         }
         private void AttackTarget(Vector3 distance)
         {
-            if (distance.sqrMagnitude < 3f && _owner.healthComponent.IsReadyToAttack())
+            if (distance.sqrMagnitude < _iteractDistance.value && _owner.healthComponent.IsReadyToAttack())
             {
                 _owner.healthComponent.GiveDamage(_target);
                 _strenght.GiveExp(10);

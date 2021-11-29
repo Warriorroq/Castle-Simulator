@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnitSpace.Attributes;
+using UnityEngine;
 
 namespace UnitSpace.Orders
 {
@@ -7,6 +8,7 @@ namespace UnitSpace.Orders
         private ResourceMineContainer _target;
         private ResourceSender _sender;
         private HealthComponent _healthComponent;
+        private IteractDistance _iteractDistance;
         public MineResource(ResourceMineContainer resource, ResourceSender resourceSender)
         {
             _target = resource;
@@ -17,6 +19,7 @@ namespace UnitSpace.Orders
             base.SetUnitOwner(owner);
             _owner.unitOrders.ClearOrders();
             _healthComponent = _owner.GetComponent<HealthComponent>();
+            _iteractDistance = owner.attributes.GetOrCreateAttribute<IteractDistance>();
         }
         protected override void OnUpdateOrder()
         {
@@ -26,7 +29,7 @@ namespace UnitSpace.Orders
                 return;
             }
             var distance = _owner.transform.position - _target.transform.position;
-            if (distance.sqrMagnitude <= 3 && _healthComponent.CanUseStateAndReloadIteract())
+            if (distance.sqrMagnitude <= _iteractDistance.value && _healthComponent.CanUseStateAndReloadIteract())
             {
                 var resource = _target.GetResource();
                 _owner.resourcePosition.TakeResource(resource);
@@ -35,7 +38,7 @@ namespace UnitSpace.Orders
                 _owner.unitOrders.AddOrder(this);
                 EndOrder();
             }
-            else if(distance.sqrMagnitude > 3)
+            else if(distance.sqrMagnitude > _iteractDistance.value)
             {
                 EndOrder();
                 _owner.unitOrders.AddOrder(new MoveToOrder(_target.transform.position));

@@ -1,8 +1,8 @@
 namespace UnitSpace.Attributes
 {
-    public class Distance : Attribute
+    public class IteractDistance : Attribute
     {
-        public Distance()
+        public IteractDistance()
         {
             value = 3f;
             _level = 0;

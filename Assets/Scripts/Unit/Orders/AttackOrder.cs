@@ -9,6 +9,7 @@ namespace UnitSpace.Orders
         private List<Unit> _targets;
         private Unit _currentTarget;
         private Strenght _strenght;
+        private IteractDistance _iteractDistance;
         public AttackOrder(IEnumerable<Unit> targets)
         {
             _targets = new List<Unit>(targets);
@@ -17,6 +18,7 @@ namespace UnitSpace.Orders
         {
             base.SetUnitOwner(owner);
             _strenght = owner.attributes.GetOrCreateAttribute<Strenght>();
+            _iteractDistance = owner.attributes.GetOrCreateAttribute<IteractDistance>();
         } 
         protected override void OnUpdateOrder()
         {
@@ -42,7 +44,7 @@ namespace UnitSpace.Orders
         private void AttackTarget()
         {
             var distance = _owner.transform.position - _currentTarget.transform.position;
-            if (distance.sqrMagnitude <= 3)
+            if (distance.sqrMagnitude <= _iteractDistance.value)
                 GiveDamageAndEXPForAttack();
             else
             {
