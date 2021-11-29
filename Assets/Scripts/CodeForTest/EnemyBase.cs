@@ -6,7 +6,7 @@ namespace UnitSpace
     public class EnemyBase : MonoBehaviour
     {
         [SerializeField] private Unit _prefab;
-        [SerializeField] private UnitFraction _enemy;
+        [SerializeField] private UnitType _enemy;
         private void Start()
         {
             var unit = GetComponent<Unit>();

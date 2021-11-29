@@ -18,7 +18,7 @@ namespace UnitSpace.Orders
         {
             base.StartOrder();
             var distance = _owner.transform.position - _resource.transform.position;
-            if(distance.sqrMagnitude > 2f && _resource.IsAvaliable)
+            if(distance.sqrMagnitude > 3f && _resource.IsAvaliable)
             {
                 _owner.unitOrders.StopImmediate();
                 MoveToResourceAlgorithm();

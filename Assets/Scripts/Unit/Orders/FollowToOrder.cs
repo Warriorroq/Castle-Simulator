@@ -5,10 +5,10 @@ namespace UnitSpace.Orders
 
     public class FollowToOrder : Order
     {
-        private Unit _target;
+        private Transform _target;
         private Vector3 _lastTargetPosition;
         private Speed _ownerSpeed;
-        public FollowToOrder(Unit target) {
+        public FollowToOrder(Transform target) {
             _target = target;
         }
         public override void EndOrder()
@@ -24,7 +24,7 @@ namespace UnitSpace.Orders
                 EndOrder();
                 return;
             }
-            _owner.navMeshAgent.SetDestination(_target.transform.position);
+            _owner.navMeshAgent.SetDestination(_target.position);
             _ownerSpeed = _owner.attributes.GetOrCreateAttribute<Speed>();
             _owner.navMeshAgent.speed = _ownerSpeed.value;
             _owner.navMeshAgent.isStopped = false;
@@ -37,7 +37,7 @@ namespace UnitSpace.Orders
                 return;
             }
             SetDestinationByDistanceChange(2f);
-            var distance = _owner.transform.position - _target.transform.position;
+            var distance = _owner.transform.position - _target.position;
             if (distance.sqrMagnitude < 2f)
                 EndOrder();
 
@@ -45,9 +45,9 @@ namespace UnitSpace.Orders
         }
         private void SetDestinationByDistanceChange(float change)
         {
-            var comparePositions = _lastTargetPosition - _target.transform.position;
+            var comparePositions = _lastTargetPosition - _target.position;
             if (comparePositions.sqrMagnitude > change)
-                _owner.navMeshAgent.SetDestination(_target.transform.position);
+                _owner.navMeshAgent.SetDestination(_target.position);
         }
     }
 }

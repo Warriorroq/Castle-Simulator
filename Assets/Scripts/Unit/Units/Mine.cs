@@ -7,7 +7,7 @@ namespace UnitSpace
     public class Mine : MonoBehaviour
     {
         [SerializeField] private Unit _owner;
-        [SerializeField] private List<UnitFraction> _triggerFractions;
+        [SerializeField] private List<UnitType> _triggerFractions;
         private void Awake()
         {
             _owner = GetComponent<Unit>();

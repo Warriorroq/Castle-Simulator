@@ -4,18 +4,18 @@ using UnitSpace;
 using UnitSpace.Enums;
 using UnitSpace.Orders;
 using UnityEngine;
-
+using System.Linq;
 namespace PlayerCamera
 {
     public class GiveOrderToUnits : MonoBehaviour
     {
-        private Dictionary<UnitFraction, List<Unit>> _takedUnits;
+        private Dictionary<UnitType, List<Unit>> _takedUnits;
         [SerializeField] private Unit _unitClone;
         [SerializeField] private Unit _enemyBaseClone;
         [SerializeField] private Unit _cannonClone;
         [SerializeField] private Unit _mineClone;
-        [SerializeField] private UnitFraction _myFraction;
-        [SerializeField] private UnitFraction _enemyFraction;
+        [SerializeField] private UnitType _myFraction;
+        [SerializeField] private UnitType _enemyFraction;
         public void DropResource()
             => _takedUnits[_myFraction].ForEach(unit => unit.resourcePosition.DropResource());
         public void RecoverOrder()
@@ -35,15 +35,18 @@ namespace PlayerCamera
         {
             foreach(var Unit in _takedUnits[_myFraction])
             {
-                foreach (var resource in _takedUnits[UnitFraction.Resources])
+                foreach (var resource in _takedUnits[UnitType.Cargo])
+                {
                     Unit.unitOrders.AddOrder(new PickUpResource(resource));
+                }
             }
         }
         public void FollowUnit()
         {
             foreach (var unit in _takedUnits[_myFraction])
             {
-                var nearestUnit = unit.TakeNearest<Unit>(_takedUnits[_enemyFraction]);
+                
+                var nearestUnit = unit.transform.TakeNearestInSpace(_takedUnits[_enemyFraction].Select(x => x.transform));
                 unit?.unitOrders.AddOrder(new FollowToOrder(nearestUnit));
             }  
         }
@@ -52,28 +55,37 @@ namespace PlayerCamera
             foreach (var unit in _takedUnits[_myFraction])
             {
                 if (unit)
+                {
                     unit.unitOrders.AddOrder(new ModerateOrder(unit.transform.position, _enemyFraction));
+                }
             }
         }
         public void AttackUnit()
         {
             foreach (var unit in _takedUnits[_myFraction])
+            {
                 unit?.unitOrders.AddOrder(new AttackOrder(_takedUnits[_enemyFraction]));
+            }
         }
         public void MineResource()
         {
             foreach (var unit in _takedUnits[_myFraction])
             {
-                var nearestMine = unit.TakeNearest<ResourceMineContainer>(_takedUnits[UnitFraction.ResourceMine]);
-                var nearestSender = nearestMine.TakeNearest<ResourceSender>(_takedUnits[UnitFraction.Buildings]);
-                unit?.unitOrders.AddOrder(new MineResource(nearestMine, nearestSender));
+                var nearestMine = unit.transform.TakeNearestInSpace(_takedUnits[UnitType.Mine].Select(x => x.transform));
+                if (nearestMine is null)
+                    return;
+                var nearestSender = nearestMine.transform.TakeNearestInSpace(_takedUnits[UnitType.Buildings].Select(x => x.transform));
+                var order = new MineResource(nearestMine.GetComponent<ResourceMineContainer>(), nearestSender.GetComponent<ResourceSender>());
+                unit?.unitOrders.AddOrder(order);
             }
         }
         private void MoveToPoint()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, float.MaxValue))
+            {
                 _takedUnits[_myFraction].ForEach(unit => unit.unitOrders.AddOrder(new MoveToOrder(hit.point)));
+            }
         }
         private void CreateUnit(Unit unit)
         {
@@ -87,9 +99,9 @@ namespace PlayerCamera
         }
         private void Start()
         {
-            _takedUnits = new Dictionary<UnitFraction, List<Unit>>();
-            foreach (var type in Enum.GetValues(typeof(UnitFraction)))
-                _takedUnits.Add((UnitFraction)type, new List<Unit>());
+            _takedUnits = new Dictionary<UnitType, List<Unit>>();
+            foreach (var type in Enum.GetValues(typeof(UnitType)))
+                _takedUnits.Add((UnitType)type, new List<Unit>());
             TryGetComponent(out UnitTaker unitTakes);
             unitTakes.takeUnits.AddListener(TakeUnits);
         }
@@ -103,7 +115,7 @@ namespace PlayerCamera
             {
                 foreach (var i in _takedUnits.Keys)
                     foreach (var j in _takedUnits[i])
-                        Destroy(j.gameObject);
+                        if(j) Destroy(j.gameObject);
             }
             if (Input.GetKeyDown(KeyCode.B))
                 CreateUnit(_enemyBaseClone);
@@ -125,7 +137,7 @@ namespace PlayerCamera
                 _takedUnits[unit.fraction].Add(unit);
             ActiveAllUnitsSelectors(Color.red);
             ActiveFractionUnitsSelectors(_myFraction, Color.green);
-            ActiveFractionUnitsSelectors(UnitFraction.Buildings, Color.green);
+            ActiveFractionUnitsSelectors(UnitType.Buildings, Color.green);
         }
         private void ActiveAllUnitsSelectors(Color color)
         {
@@ -133,7 +145,7 @@ namespace PlayerCamera
                 foreach (var unit in _takedUnits[key])
                     unit?.unitSelector.ChangeSelectorColor(color);
         }
-        private void ActiveFractionUnitsSelectors(UnitFraction fraction, Color color)
+        private void ActiveFractionUnitsSelectors(UnitType fraction, Color color)
         {
             foreach (var unit in _takedUnits[fraction])
                 unit?.unitSelector.ChangeSelectorColor(color);

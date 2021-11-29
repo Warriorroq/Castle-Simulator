@@ -9,22 +9,21 @@ namespace UnitSpace.Attributes
         }
         public override void ConnectToUnit(Unit unit)
         {
-            unit.healthComponent.takeIteractData.AddListener(UseDefence);
+            unit.healthComponent.takeIteractData.AddListener(ModifyIteractData);
         }
-
-        private void UseDefence(IteractData arg0)
+        public override void LevelUp(float valueToAdd)
+        {
+            _level++;
+            value += 2 * valueToAdd;
+        }
+        public override string ToString()
+            => $"Defence: | level {_level} | value {value} {base.ToString()}";
+        protected override void ModifyIteractData(IteractData arg0)
         {
             arg0.damage -= value;
             if (arg0.damage < 0)
                 arg0.damage = 0;
-            xpProgressValue += 10;
+            GiveExp(10);
         }
-        public override void LevelUpThis(float value)
-        {
-            _level++;
-            this.value += 2 * value;
-        }
-        public override string ToString()
-            => $"Defence: | level {_level} | value {value}";
     }
 }

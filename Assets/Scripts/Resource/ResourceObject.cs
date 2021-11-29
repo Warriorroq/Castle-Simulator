@@ -5,7 +5,7 @@ namespace Resource
 {
     public class ResourceObject : MonoBehaviour
     {
-        public bool IsAvaliable => transform.parent == null;
+        public bool IsAvaliable => !transform.parent;
         public ResourceType resourceType;
         public int Amount = 1;
         private Unit _owner;

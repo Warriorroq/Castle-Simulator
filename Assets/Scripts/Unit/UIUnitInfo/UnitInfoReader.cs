@@ -37,6 +37,6 @@ public class UnitInfoReader : MonoBehaviour
     private void Awake()
     {
         FindObjectOfType<PlayerCamera.UnitTaker>().takeUnits.AddListener(TakeUnit);
-        InvokeRepeating(nameof(UpdateInformationAboutUnit), 0, .1f);
+        InvokeRepeating(nameof(UpdateInformationAboutUnit), 0, .05f);
     }
 }

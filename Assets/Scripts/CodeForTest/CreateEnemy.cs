@@ -6,9 +6,9 @@ namespace UnitSpace.Orders
     public class CreateEnemy : Order
     {
         private Unit _prefab;
-        private UnitFraction _enemyFraction;
-        private UnitFraction _fraction;
-        public CreateEnemy(Unit prefab, UnitFraction fraction, UnitFraction enemyFraction)
+        private UnitType _enemyFraction;
+        private UnitType _fraction;
+        public CreateEnemy(Unit prefab, UnitType fraction, UnitType enemyFraction)
         {
             _prefab = prefab;
             _enemyFraction = enemyFraction;
@@ -34,7 +34,7 @@ namespace UnitSpace.Orders
             var randomVector = new Vector3(Random.Range(1, 2), 1, Random.Range(-5, 5));
             var minion = Object.Instantiate(_prefab, _owner.transform.position + randomVector, Quaternion.identity) as Unit;
             minion.fraction = _fraction;
-            minion.unitOrders.AddOrder(new ModerateOrder(_owner.transform.position, _enemyFraction, UnitFraction.Buildings));
+            minion.unitOrders.AddOrder(new ModerateOrder(_owner.transform.position, _enemyFraction, UnitType.Buildings));
             minion.GetComponent<MeshRenderer>().material.color = Color.black;
         }
     }

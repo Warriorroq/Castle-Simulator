@@ -16,7 +16,7 @@ namespace UnitSpace.Orders
         {
             base.EndOrder();
             _owner.navMeshAgent.isStopped = true;
-            _ownerSpeed.xpProgressValue += points;
+            _ownerSpeed.GiveExp(points);
         }
 
         public override void StartOrder()
@@ -31,7 +31,9 @@ namespace UnitSpace.Orders
         protected override void OnUpdateOrder()
         {
             if (Vector3.Distance(_owner.transform.position, _target) < 1.2f)
+            {
                 EndOrder();
+            }
 
             _owner.navMeshAgent.speed = _ownerSpeed.value;
         }

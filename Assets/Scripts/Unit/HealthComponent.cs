@@ -5,27 +5,18 @@ using UnityEngine.Events;
 using UnitSpace.Enums;
 public class HealthComponent : MonoBehaviour
 {    
+    //TODO: remove attack parts from it
     public UnityEvent<IteractData> giveIteractData;
     public UnityEvent<IteractData> takeIteractData;
     public UnityEvent destroyUnit;
+    public bool HealthIsOverHealed => _health.IsOverHealed;
     [SerializeField] private float _reloadTime = 1;
     private Unit _owner;
     private Health _health;
     private ReadyState attackState;
-    private float Health
-    {
-        get
-            => _health.currentHp;
-        set
-        {
-            if (value <= 0)
-                DestroyThisUnit();
-            _health.currentHp = value;
-        }
-    }
     public bool IsReadyToAttack()
         => attackState == ReadyState.Ready;
-    public bool CanUseStateAndReloadIt()
+    public bool CanUseStateAndReloadIteract()
     {
         if (attackState == ReadyState.Ready)
         {
@@ -46,6 +37,25 @@ public class HealthComponent : MonoBehaviour
             target.healthComponent.TakeDamage(data);
         }
     }
+    public void GiveDamage(Unit target, IteractData iteractData)
+    {
+        if (attackState == ReadyState.Ready)
+        {
+            attackState = ReadyState.NonReady;
+            Invoke(nameof(Reload), _reloadTime);
+            giveIteractData?.Invoke(iteractData);
+            target.healthComponent.TakeDamage(iteractData);
+        }
+    }
+    public void HealthHeal(float Amount) { 
+        _health.Heal(Amount); 
+    }
+    private void TakeDamageWithHealthAttribute(float Amount)
+    {
+        _health.currentHp -= Amount;
+        if (_health.currentHp <= 0)
+            DestroyThisUnit();
+    }
     private void TakeDamage(IteractData data)
     {
         takeIteractData?.Invoke(data);
@@ -59,6 +69,16 @@ public class HealthComponent : MonoBehaviour
     {
         _health = _owner.attributes.GetOrCreateAttribute<Health>();
         attackState = ReadyState.Ready;
+        InvokeRepeating(nameof(ReduceAddictiveHealth), 1f, 1f);
+    }
+    private void ReduceAddictiveHealth()
+    {
+        if (!HealthIsOverHealed)
+            return;
+        if (_health.currentHp > _health.value)
+            _health.currentHp--;
+        if (_health.currentHp < _health.value)
+            _health.currentHp = _health.value;
     }
     private void DestroyThisUnit()
     {
@@ -68,8 +88,8 @@ public class HealthComponent : MonoBehaviour
     }
     private void ReduceDamageFromHealth(IteractData data)
     {
-        Health -= data.damage;
-        Debug.Log($"{name} taked damage {data.damage} hp is {Health}");
+        TakeDamageWithHealthAttribute(data.damage);
+        Debug.Log($"{name} taked damage {data.damage} hp is {_health.currentHp}");
     }
     private void Reload()
         => attackState = ReadyState.Ready;

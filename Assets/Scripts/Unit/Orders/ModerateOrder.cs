@@ -12,11 +12,11 @@ namespace UnitSpace.Orders
         private Speed _speed;
         private Unit _target;
         private Vector3 _moderatePosition;
-        private List<UnitFraction> _enemyFraction;
-        public ModerateOrder(Vector3 moderatePosition, params UnitFraction[] enemyFraction)
+        private List<UnitType> _enemyFraction;
+        public ModerateOrder(Vector3 moderatePosition, params UnitType[] enemyFraction)
         {
             _moderatePosition = moderatePosition;
-            _enemyFraction = new List<UnitFraction>(enemyFraction);
+            _enemyFraction = new List<UnitType>(enemyFraction);
         }
         public override void EndOrder()
         {
@@ -67,7 +67,7 @@ namespace UnitSpace.Orders
             if (distance.sqrMagnitude < 3f && _owner.healthComponent.IsReadyToAttack())
             {
                 _owner.healthComponent.GiveDamage(_target);
-                _strenght.xpProgressValue += 10;
+                _strenght.GiveExp(10);
             }
         }
         private void MoveToModeratePoint()

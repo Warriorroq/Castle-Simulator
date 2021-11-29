@@ -46,7 +46,6 @@ namespace UnitSpace
             else
             {
                 _currentOrder = null;
-                LevelingUpByAttributes.GetInstance().CheckOnLevelUp(_owner);
             }
         }
         private void DequeueNextOrder()

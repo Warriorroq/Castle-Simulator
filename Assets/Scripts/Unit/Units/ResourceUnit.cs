@@ -6,8 +6,8 @@ namespace UnitSpace
         public void Start()
         {
             unitSelector = GetComponentInChildren<UnitSelector>();
-            if (fraction == UnitFraction.None)
-                fraction = UnitFraction.Resources;
+            if (fraction == UnitType.None)
+                fraction = UnitType.Cargo;
         }
     }
 }

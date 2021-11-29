@@ -24,9 +24,15 @@ public class CameraMovement : MonoBehaviour
             _moveVector.y = 0;
             transform.position += _moveVector;
         }
+
         if (Input.GetKey(KeyCode.LeftShift))
+        {
             transform.position += Vector3.up * Time.deltaTime * _moveSpeed;
+        }
+
         else if (Input.GetKey(KeyCode.LeftControl))
+        {
             transform.position -= Vector3.up * Time.deltaTime * _moveSpeed;
+        }
     }
 }

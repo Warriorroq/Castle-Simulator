@@ -20,13 +20,13 @@ namespace UnitSpace.Orders
         }
         protected override void OnUpdateOrder()
         {
-            if (!_target)
+            if (!_target || !_sender)
             {
                 EndOrder();
                 return;
             }
             var distance = _owner.transform.position - _target.transform.position;
-            if (distance.sqrMagnitude <= 3 && _healthComponent.CanUseStateAndReloadIt())
+            if (distance.sqrMagnitude <= 3 && _healthComponent.CanUseStateAndReloadIteract())
             {
                 var resource = _target.GetResource();
                 _owner.resourcePosition.TakeResource(resource);

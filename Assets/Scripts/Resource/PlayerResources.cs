@@ -26,7 +26,9 @@ namespace Resource
         {
             _takedUnits = new Dictionary<ResourceType, int>();
             foreach (var type in Enum.GetValues(typeof(ResourceType)))
+            {
                 _takedUnits.Add((ResourceType)type, 0);
+            }
             Debug.Log(ToString());
         }
     }

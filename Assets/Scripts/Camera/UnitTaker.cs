@@ -22,12 +22,16 @@ namespace PlayerCamera
         private void Update()
         {
             if (!EventSystem.current.IsPointerOverGameObject())
+            {
                 CreateRectAndGetObjectFromIt();
+            }
         }
         private void CreateRectAndGetObjectFromIt()
         {
             if (Input.GetMouseButtonDown(0))
+            {
                 _onClick = Input.mousePosition;
+            }
             if (Input.GetMouseButtonUp(0))
             {
                 _endClick = Input.mousePosition;
@@ -43,7 +47,9 @@ namespace PlayerCamera
         private void GetAllObjectsFromRect()
         {
             if(!Input.GetKey(KeyCode.LeftShift))
+            {
                 _takedUnits.Clear();
+            }
             var units = GameObject.FindGameObjectsWithTag(_unitTag);
             foreach(var unit in units)
             {

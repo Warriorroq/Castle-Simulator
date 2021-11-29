@@ -10,7 +10,7 @@ namespace UnitSpace
         [SerializeField] private CannonHead _head;
         [SerializeField] private Unit _target;
         [SerializeField] private Unit _owner;
-        [SerializeField] private List<UnitFraction> _enemyFraction;
+        [SerializeField] private List<UnitType> _enemyFraction;
         [SerializeField] private Quaternion lastRotation;
         [SerializeField] private Sensitivity _sensitivity;
         private void Awake()

@@ -1,5 +1,4 @@
-using System;
-using System.Linq;
+using UnitSpace.Attributes;
 namespace UnitSpace
 {
     public class LevelingUpByAttributes
@@ -12,33 +11,13 @@ namespace UnitSpace
                 _thisInstance = new LevelingUpByAttributes();
             return _thisInstance;
         }
-        public void CheckOnLevelUp(Unit unit)
+        public void LevelUp(Attribute attribute)
         {
-            CountUnitTotalExp(unit, out var totalExp);
-            if(totalExp >= expToLevelUp)
-            {
-                LevelUpAttributesIn(unit);
-            }
-        }
-        public void CountUnitTotalExp(Unit unit, out float currentExp)
-        {
-            currentExp = 0;
-            foreach(var attribute in unit.attributes.attributes)
-            {
-                currentExp += attribute.xpProgressValue;
-            }
-        }
-        private void LevelUpAttributesIn(Unit unit)
-        {
-            foreach (var attribute in unit.attributes.attributes)
-            {
-                attribute.value += attribute.xpProgressValue / expToLevelUp;
-                attribute.xpProgressValue = 0;
-            }
+            attribute.LevelUp(1);
         }
         private void LevelUpSkillsIn(Unit unit)
         {
-            //do something
+            //TODO: this
         }
     }
 }

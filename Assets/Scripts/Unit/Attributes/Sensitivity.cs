@@ -6,7 +6,7 @@ namespace UnitSpace.Attributes
         {
             value = 10;
         }
-        public override void LevelUpThis(float value)
+        public override void LevelUp(float value)
         {
             this.value += value;
             _level++;

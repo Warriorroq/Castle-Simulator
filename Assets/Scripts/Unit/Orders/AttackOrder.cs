@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnitSpace.Attributes;
-
+using System.Linq;
 namespace UnitSpace.Orders
 {
 
@@ -17,7 +17,7 @@ namespace UnitSpace.Orders
         {
             base.SetUnitOwner(owner);
             _strenght = owner.attributes.GetOrCreateAttribute<Strenght>();
-        }
+        } 
         protected override void OnUpdateOrder()
         {
             if (!_currentTarget)
@@ -28,14 +28,16 @@ namespace UnitSpace.Orders
                     return;
                 }
                 FindNearestTarget();
-                if (!_currentTarget)
-                {
-                    EndOrder();
-                    return;
-                }
             }
-            if (_currentTarget)
-                AttackTarget();
+
+            //Target couldn't exist
+            if (!_currentTarget) 
+            {
+                EndOrder();
+                return;
+            }
+
+            AttackTarget();
         }
         private void AttackTarget()
         {
@@ -44,14 +46,15 @@ namespace UnitSpace.Orders
                 GiveDamageAndEXPForAttack();
             else
             {
-                _owner.unitOrders.AddOrder(new FollowToOrder(_currentTarget));
+                _owner.unitOrders.AddOrder(new FollowToOrder(_currentTarget.transform));
                 _owner.unitOrders.AddOrder(this);
                 EndOrder();
             }
         }
         private void FindNearestTarget()
         {
-            _currentTarget = _owner.TakeNearest<Unit>(_targets);
+            var unitTransform = _owner.transform.TakeNearestInSpace(_targets.Select(x => x.transform));
+            _currentTarget = unitTransform.GetComponent<Unit>();
             _targets.Remove(_currentTarget);
         }
         private void GiveDamageAndEXPForAttack()
@@ -59,7 +62,7 @@ namespace UnitSpace.Orders
             if(_owner.healthComponent.IsReadyToAttack())
             {
                 _owner.healthComponent.GiveDamage(_currentTarget);
-                _strenght.xpProgressValue += 10;
+                _strenght.GiveExp(10);
             }
         }
     }

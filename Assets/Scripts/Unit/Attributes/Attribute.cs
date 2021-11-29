@@ -3,8 +3,8 @@ namespace UnitSpace.Attributes
     public abstract class Attribute
     {
         public float value;
-        public float xpProgressValue;
         public string Name => GetType().Name;
+        private float xpProgressValue;
         protected int _level;
         public Attribute(float value = 1, float xpProgressValue = 0)
         {
@@ -12,11 +12,20 @@ namespace UnitSpace.Attributes
             this.value = value;
             this.xpProgressValue = xpProgressValue;
         }
+        public virtual void GiveExp(float xpAmount)
+        {
+            xpProgressValue += xpAmount;
+            if (xpProgressValue >= 1000)
+                LevelingUpByAttributes.GetInstance().LevelUp(this);
+        }
         public virtual void ConnectToUnit(Unit unit){}
-        public abstract void LevelUpThis(float value);
+        public abstract void LevelUp(float value);
         public virtual void LoadAttribute(AttributesParam param)
         {
             value = param.value;
         }
+        protected virtual void ModifyIteractData(IteractData arg0) { }
+        public override string ToString()
+            => $"exp is {xpProgressValue} | {base.ToString()}";
     }
 }

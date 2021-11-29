@@ -6,21 +6,19 @@ namespace UnitSpace.Attributes
         {
             value = 2;
         }
-        public override void LevelUpThis(float value)
+        public override void LevelUp(float value)
         {
             this.value += value;
             _level++;
         }
         public override void ConnectToUnit(Unit unit)
         {
-            unit.healthComponent.giveIteractData.AddListener(UseDamage);
+            unit.healthComponent.giveIteractData.AddListener(ModifyIteractData);
         }
-
-        private void UseDamage(IteractData arg0)
+        protected override void ModifyIteractData(IteractData arg0)
         {
             arg0.damage = value;
         }
-
         public override string ToString()
         {
             return $"Strenght: | level {_level} | value {value}";

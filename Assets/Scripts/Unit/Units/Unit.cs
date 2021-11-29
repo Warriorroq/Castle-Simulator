@@ -15,7 +15,7 @@ namespace UnitSpace
         public HealthComponent healthComponent;
         public UnitSelector unitSelector;
         public ResourceUnitPosition resourcePosition;
-        public UnitFraction fraction;
+        public UnitType fraction;
         private void Awake()
         {
             GetUnitComponents();
@@ -51,8 +51,7 @@ namespace UnitSpace
         }
         public override string ToString()
         {
-            LevelingUpByAttributes.GetInstance().CountUnitTotalExp(this, out var exp);
-            return $"attributes: \n {attributes} \n skills: \n {skills}  \n exp is: {exp}";
+            return $"attributes: \n {attributes} \n skills: \n {skills}";
         }
     }
 }
