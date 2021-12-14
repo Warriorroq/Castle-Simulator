@@ -14,10 +14,12 @@ namespace UnitSpace.Orders
         private Unit _target;
         private Vector3 _moderatePosition;
         private List<UnitType> _enemyFraction;
+        private GameObject _effectPrefab;
         public ModerateOrder(Vector3 moderatePosition, params UnitType[] enemyFraction)
         {
             _moderatePosition = moderatePosition;
             _enemyFraction = new List<UnitType>(enemyFraction);
+            _effectPrefab = Resources.Load<GameObject>("JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_C_White");
         }
         public override void EndOrder()
         {
@@ -68,6 +70,9 @@ namespace UnitSpace.Orders
         {
             if (distance.sqrMagnitude < _iteractDistance.value && _owner.healthComponent.IsReadyToAttack())
             {
+                Vector3 directionVector = (_target.transform.position - _owner.transform.position)/2f;
+                var effect = GameObject.Instantiate(_effectPrefab, _owner.transform.position, Quaternion.identity);
+                effect.transform.position += directionVector;
                 _owner.healthComponent.GiveDamage(_target);
                 _strenght.GiveExp(10);
             }

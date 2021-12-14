@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnitSpace.Attributes;
 using System.Linq;
+using UnityEngine;
+
 namespace UnitSpace.Orders
 {
 
@@ -10,8 +12,10 @@ namespace UnitSpace.Orders
         private Unit _currentTarget;
         private Strenght _strenght;
         private IteractDistance _iteractDistance;
+        private GameObject _effectPrefab;
         public AttackOrder(IEnumerable<Unit> targets)
         {
+            _effectPrefab = Resources.Load<GameObject>("JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_C_White");
             _targets = new List<Unit>(targets);
         }
         public override void SetUnitOwner(Unit owner)
@@ -63,6 +67,9 @@ namespace UnitSpace.Orders
         {
             if(_owner.healthComponent.IsReadyToAttack())
             {
+                Vector3 directionVector = (_currentTarget.transform.position - _owner.transform.position) / 2f;
+                var effect = GameObject.Instantiate(_effectPrefab, _owner.transform.position, Quaternion.identity);
+                effect.transform.position += directionVector;
                 _owner.healthComponent.GiveDamage(_currentTarget);
                 _strenght.GiveExp(10);
             }

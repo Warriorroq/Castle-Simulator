@@ -8,6 +8,11 @@ namespace UnitSpace.Orders
         private HealthComponent _healthComponent;
         private Recovery _recovery;
         private float _timer;
+        private GameObject _effectPrefab;
+        public RecoverOrder()
+        {
+            _effectPrefab = Resources.Load<GameObject>("JMO Assets/Cartoon FX/CFX Prefabs/Misc/CFX_Health");
+        }
         public override void SetUnitOwner(Unit owner)
         {
             base.SetUnitOwner(owner);
@@ -19,7 +24,8 @@ namespace UnitSpace.Orders
             {
                 _healthComponent.HealthHeal(_recovery.value);
                 _recovery.GiveExp(_recovery.value * 10);
-                _timer = 0;
+                _timer = 0;                
+                GameObject.Instantiate(_effectPrefab, _owner.transform.position, Quaternion.identity);
             }
             _timer += Time.deltaTime;
         }
