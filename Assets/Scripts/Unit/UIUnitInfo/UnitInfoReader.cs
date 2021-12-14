@@ -9,12 +9,12 @@ public class UnitInfoReader : MonoBehaviour
     [SerializeField] private Text _unitName;
     [SerializeField] private Text _unitInfo;
     [SerializeField] private Unit _takedUnit;
-    [SerializeField] private CreateSkillButtons _createSkillButtons;
+    //[SerializeField] private CreateSkillButtons _createSkillButtons;
     public void ClearInformation()
     {
         _unitName.text = string.Empty;
         _unitInfo.text = string.Empty;
-        _createSkillButtons.Clear();
+        //_createSkillButtons.Clear();
     }
     public void TakeUnit(List<Unit> units)
     {
@@ -27,7 +27,7 @@ public class UnitInfoReader : MonoBehaviour
     {
         if (_takedUnit)
         {
-            _createSkillButtons.Create(_takedUnit);
+            //_createSkillButtons.Create(_takedUnit);
             _unitName.text = _takedUnit.name;
             _unitInfo.text = _takedUnit.ToString();
         }

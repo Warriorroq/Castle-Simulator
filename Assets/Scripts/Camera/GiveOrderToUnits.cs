@@ -16,6 +16,7 @@ namespace PlayerCamera
         [SerializeField] private Unit _mineClone;
         [SerializeField] private UnitType _myFraction;
         [SerializeField] private UnitType _enemyFraction;
+        [SerializeField] private Vector3 mousePositionInWorld;
         public void DropResource()
             => _takedUnits[_myFraction].ForEach(unit => unit.resourcePosition.DropResource());
         public void RecoverOrder()
@@ -56,7 +57,7 @@ namespace PlayerCamera
             {
                 if (unit)
                 {
-                    unit.unitOrders.AddOrder(new ModerateOrder(unit.transform.position, _enemyFraction));
+                    unit.unitOrders.AddOrder(new ModerateOrder(mousePositionInWorld, _enemyFraction));
                 }
             }
         }
@@ -79,12 +80,16 @@ namespace PlayerCamera
                 unit?.unitOrders.AddOrder(order);
             }
         }
-        private void MoveToPoint()
+        public void MoveToPoint()
+        {
+            _takedUnits[_myFraction].ForEach(unit => unit.unitOrders.AddOrder(new MoveToOrder(mousePositionInWorld)));
+        }
+        private void SetMousePointInWorld()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, float.MaxValue))
             {
-                _takedUnits[_myFraction].ForEach(unit => unit.unitOrders.AddOrder(new MoveToOrder(hit.point)));
+                mousePositionInWorld = hit.point;
             }
         }
         private void CreateUnit(Unit unit)
@@ -107,8 +112,7 @@ namespace PlayerCamera
         }
         private void Update()
         {
-            if (Input.GetMouseButtonDown(1))
-                MoveToPoint();
+            SetMousePointInWorld();
             if (Input.GetKeyDown(KeyCode.Space))
                 CreateUnit(_unitClone);
             if (Input.GetKeyDown(KeyCode.Delete))
