@@ -12,10 +12,8 @@ namespace UnitSpace.Orders
         private Unit _currentTarget;
         private Strenght _strenght;
         private IteractDistance _iteractDistance;
-        private GameObject _effectPrefab;
         public AttackOrder(IEnumerable<Unit> targets)
         {
-            _effectPrefab = Resources.Load<GameObject>("JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_C_White");
             _targets = new List<Unit>(targets);
         }
         public override void SetUnitOwner(Unit owner)
@@ -67,9 +65,8 @@ namespace UnitSpace.Orders
         {
             if(_owner.healthComponent.IsReadyToAttack())
             {
-                Vector3 directionVector = (_currentTarget.transform.position - _owner.transform.position) / 2f;
-                var effect = GameObject.Instantiate(_effectPrefab, _owner.transform.position, Quaternion.identity);
-                effect.transform.position += directionVector;
+                Vector3 position = (_currentTarget.transform.position + _owner.transform.position) / 2f;
+                var effect = GameObject.Instantiate(ResourceEffects.Hit, position, Quaternion.identity);
                 _owner.healthComponent.GiveDamage(_currentTarget);
                 _strenght.GiveExp(10);
             }

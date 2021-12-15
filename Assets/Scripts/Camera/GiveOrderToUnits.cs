@@ -97,6 +97,7 @@ namespace PlayerCamera
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, float.MaxValue))
             {
+                Instantiate(ResourceEffects.SummonLightCircle, hit.point, Quaternion.AngleAxis(90, Vector3.left));
                 var unitClone = Instantiate(unit, hit.point + Vector3.up, Quaternion.identity);
                 if(unitClone.fraction == _myFraction)
                     TakeUnit(unitClone, Color.green);

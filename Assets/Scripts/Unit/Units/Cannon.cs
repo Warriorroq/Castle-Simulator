@@ -38,9 +38,22 @@ namespace UnitSpace
                 return;
             lastRotation = _head.transform.rotation;
             _head.transform.LookAt(_target.transform.position);
-            if (_head.transform.rotation.Approximately(lastRotation, lastRotation.DegreeToApproximatelyThirdValue(20)))
-                _owner.healthComponent.GiveDamage(_target);
             _head.transform.rotation = Quaternion.Lerp(lastRotation, _head.transform.rotation, 7f * Time.deltaTime);
+            if (_owner.healthComponent.IsReadyToAttack())
+                Attack();
+        }
+        private void Attack()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, _head.transform.forward, out hit, _sensitivity.value))
+            {
+                if (hit.collider.gameObject == _target.gameObject)
+                {
+                    _owner.healthComponent.GiveDamage(_target);
+                    var effectDirection = _target.transform.position - _head.transform.position;
+                    Instantiate(ResourceEffects.ExplosionWithSmoke, _head.transform.position + effectDirection.normalized * 2, _head.transform.rotation);
+                }
+            }
         }
         private void FindTarget()
         {
