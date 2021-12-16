@@ -22,7 +22,8 @@ namespace UnitSpace.Orders
         public override void EndOrder()
         {
             _state = IOrder.OrderState.Finished;
-            _owner?.navMeshAgent.Stop();
+            if(_owner)
+                _owner.navMeshAgent.Stop();
         }
         public override void SetUnitOwner(Unit owner)
         {

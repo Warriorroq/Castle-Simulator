@@ -20,7 +20,8 @@ namespace UnitSpace.Orders
         public override void EndOrder()
         {
             base.EndOrder();
-            _owner.navMeshAgent.isStopped = true;
+            if(_owner)
+                _owner.navMeshAgent.Stop();
         }
         public override void StartOrder()
         {
