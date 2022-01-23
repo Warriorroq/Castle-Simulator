@@ -164,6 +164,7 @@ MonoBehaviour:
   destroyUnit:
     m_PersistentCalls:
       m_Calls: []
+  _reloadTime: 1
 --- !u!114 &2653403246438682459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1197a24c41ce80a46b5bf7a05005b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _owner: {fileID: 0}
   _load: {fileID: 11400000, guid: 34e486ecbb4f28949a80f501571b3755, type: 2}
 --- !u!1 &2653403246506775328
 GameObject:
