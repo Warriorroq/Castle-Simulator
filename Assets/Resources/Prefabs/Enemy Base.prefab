@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b685d3a56098874dbaeab7ed4007664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 2653403246438682461, guid: b580f7c020eb217468303fe8a7db48d1, type: 3}
+  _prefab: {fileID: 8104046648095293417, guid: 807bb3723c8588840b5423214fa3a9b3, type: 3}
   _enemy: 2
 --- !u!114 &750929423491072643
 MonoBehaviour:
