@@ -58,6 +58,8 @@ namespace UnitSpace.Orders
         private void FindNearestTarget()
         {
             var unitTransform = _owner.transform.TakeNearestInSpace(_targets.Where(x => x).Select(x => x.transform));
+            if (unitTransform is null)
+                return;
             _currentTarget = unitTransform.GetComponent<Unit>();
             _targets.Remove(_currentTarget);
         }

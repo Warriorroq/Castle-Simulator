@@ -5,10 +5,13 @@ using UnitSpace.Enums;
 using UnitSpace.Orders;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
+
 namespace PlayerCamera
 {
     public class GiveOrderToUnits : MonoBehaviour
     {
+        public UnityEvent<List<Unit>, UnitType> takeUnits;
         private Dictionary<UnitType, List<Unit>> _takedUnits;
         [SerializeField] private Unit _unitClone;
         [SerializeField] private Unit _enemyBaseClone;
@@ -100,14 +103,17 @@ namespace PlayerCamera
                 Instantiate(ResourceEffects.SummonLightCircle, hit.point, Quaternion.AngleAxis(90, Vector3.left));
                 var unitClone = Instantiate(unit, hit.point + Vector3.up, Quaternion.identity);
                 if(unitClone.fraction == _myFraction)
+                {
                     TakeUnit(unitClone, Color.green);
+                    takeUnits.Invoke(_takedUnits[unitClone.fraction], unitClone.fraction);
+                }
             }
         }
         private void Start()
         {
             _takedUnits = new Dictionary<UnitType, List<Unit>>();
-            foreach (var type in Enum.GetValues(typeof(UnitType)))
-                _takedUnits.Add((UnitType)type, new List<Unit>());
+            foreach (UnitType type in Enum.GetValues(typeof(UnitType)))
+                _takedUnits.Add(type, new List<Unit>());
             TryGetComponent(out UnitTaker unitTakes);
             unitTakes.takeUnits.AddListener(TakeUnits);
         }
@@ -143,6 +149,8 @@ namespace PlayerCamera
             ActiveAllUnitsSelectors(Color.red);
             ActiveFractionUnitsSelectors(_myFraction, Color.green);
             ActiveFractionUnitsSelectors(UnitType.Buildings, Color.green);
+            foreach (UnitType type in Enum.GetValues(typeof(UnitType)))
+                    takeUnits.Invoke(_takedUnits[type], type);
         }
         private void ActiveAllUnitsSelectors(Color color)
         {
