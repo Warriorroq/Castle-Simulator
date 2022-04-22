@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnitSpace.Enums;
 using System.Collections.Generic;
-
+using System.IO;
+using System.Text;
+using System.Xml.Serialization;
 public class RecordStatistics : Singletone<RecordStatistics>, IDataStatisticHandler
 {
     public ReadyState recordingState; 
@@ -43,8 +45,23 @@ public class RecordStatistics : Singletone<RecordStatistics>, IDataStatisticHand
     }
     private void SaveStatistics()
     {
-        foreach(var serviceHandler in _servicies[(int)UnitType.Core].Values)
-            Debug.Log(serviceHandler.ToString());
+        List<string> dataToWrite = new List<string>();
+        foreach (var unitTypeDictionary in _servicies.Values)
+        {
+            foreach (var statisticsHandler in unitTypeDictionary.Values)
+            {
+                dataToWrite.Add(statisticsHandler.ToString());
+            }
+        }
+        SerializeObject(dataToWrite, "data.xml");
+    }
+    public void SerializeObject(List<string> list, string fileName)
+    {
+        var serializer = new XmlSerializer(typeof(List<string>));
+        using (var stream = File.OpenWrite(fileName))
+        {
+            serializer.Serialize(stream, list);
+        }
     }
     private void StopRecording()
     {

@@ -8,7 +8,7 @@ namespace UnitSpace
 {
     public class Unit : MonoBehaviour
     {
-        public UnitAttributes attributes;
+        public UnitAttributes unitAttributes;
         public UnitSkills skills;
         public UnitOrderUser unitOrders;
         public NavMeshAgent navMeshAgent;
@@ -25,21 +25,23 @@ namespace UnitSpace
             TryGetComponent(out unitOrders);
             TryGetComponent(out healthComponent);
             TryGetComponent(out navMeshAgent);
-            attributes = new UnitAttributes(this);
+            unitAttributes = new UnitAttributes(this);
             skills = new UnitSkills(this);
             resourcePosition = GetComponentInChildren<ResourceUnitPosition>();
             unitSelector = GetComponentInChildren<UnitSelector>();
         }
         protected void CreateStandartAttributes()
         {
-            attributes.GetOrCreateAttribute<Strenght>();
-            attributes.GetOrCreateAttribute<Defence>();
-            attributes.GetOrCreateAttribute<Sensitivity>();
-            attributes.GetOrCreateAttribute<Speed>();
-            attributes.GetOrCreateAttribute<Strenght>();
-            attributes.GetOrCreateAttribute<Health>();
+            unitAttributes.GetOrCreateAttribute<Strenght>();
+            unitAttributes.GetOrCreateAttribute<Defence>();
+            unitAttributes.GetOrCreateAttribute<Sensitivity>();
+            unitAttributes.GetOrCreateAttribute<Speed>();
+            unitAttributes.GetOrCreateAttribute<Strenght>();
+            unitAttributes.GetOrCreateAttribute<Health>();
             if (TryGetComponent<LoadParamsToUnit>(out var load))
                 load.LoadParams();
+            //adding randomness
+            unitAttributes.attributes[UnityEngine.Random.Range(0, 3)].LevelUp(UnityEngine.Random.Range(0, 3));
         }
         private void Start()
         {
@@ -51,7 +53,7 @@ namespace UnitSpace
         }
         public override string ToString()
         {
-            return $"attributes: \n {attributes} \n skills: \n {skills}";
+            return $"attributes: \n {unitAttributes} \n skills: \n {skills}";
         }
     }
 }

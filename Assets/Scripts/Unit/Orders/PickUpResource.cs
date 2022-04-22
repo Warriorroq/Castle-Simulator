@@ -19,7 +19,7 @@ namespace UnitSpace.Orders
         public override void StartOrder()
         {
             base.StartOrder();
-            var iteractDistance = _owner.attributes.GetOrCreateAttribute<IteractDistance>();
+            var iteractDistance = _owner.unitAttributes.GetOrCreateAttribute<IteractDistance>();
             var distance = _owner.transform.position - _resource.transform.position;
             if(distance.sqrMagnitude > iteractDistance.value && _resource.IsAvaliable)
             {

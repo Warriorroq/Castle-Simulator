@@ -19,7 +19,7 @@ namespace UnitSpace.Orders
             base.SetUnitOwner(owner);
             _owner.unitOrders.ClearOrders();
             _healthComponent = _owner.GetComponent<HealthComponent>();
-            _iteractDistance = owner.attributes.GetOrCreateAttribute<IteractDistance>();
+            _iteractDistance = owner.unitAttributes.GetOrCreateAttribute<IteractDistance>();
         }
         protected override void OnUpdateOrder()
         {

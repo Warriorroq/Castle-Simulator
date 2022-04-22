@@ -72,7 +72,7 @@ public class HealthComponent : MonoBehaviour
     }
     private void Start()
     {
-        _health = _owner.attributes.GetOrCreateAttribute<Health>();
+        _health = _owner.unitAttributes.GetOrCreateAttribute<Health>();
         attackState = ReadyState.Ready;
         InvokeRepeating(nameof(ReduceAddictiveHealth), 1f, 1f);
     }

@@ -15,7 +15,12 @@ public class DamageDealStatisticsHandler : IDataStatisticHandler
     public int GetTotalDamagePerHit()
         => _givenDamage.Sum();
     public int GetAverageDamagePerHit()
-        => GetTotalDamagePerHit() / _givenDamage.Count();
+    {
+        var devider = _givenDamage.Count();
+        if(devider == 0)
+            devider = 1;
+        return GetTotalDamagePerHit() / devider;
+    }
     public void Clear()
         => _givenDamage.Clear();
     public override string ToString()

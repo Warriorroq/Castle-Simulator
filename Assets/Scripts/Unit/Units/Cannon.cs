@@ -20,7 +20,7 @@ namespace UnitSpace
         }
         private void Start()
         {
-            _sensitivity = _owner.attributes.GetOrCreateAttribute<Sensitivity>();
+            _sensitivity = _owner.unitAttributes.GetOrCreateAttribute<Sensitivity>();
         }
         private void Update()
         {

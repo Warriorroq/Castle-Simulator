@@ -23,8 +23,8 @@ namespace UnitSpace.Orders
         public override void StartOrder()
         {
             points = Vector3.Distance(_owner.transform.position, _target) * 10;
-            _iteractDistance = _owner.attributes.GetOrCreateAttribute<IteractDistance>();
-            _ownerSpeed = _owner.attributes.GetOrCreateAttribute<Speed>();
+            _iteractDistance = _owner.unitAttributes.GetOrCreateAttribute<IteractDistance>();
+            _ownerSpeed = _owner.unitAttributes.GetOrCreateAttribute<Speed>();
             _owner.navMeshAgent.speed = _ownerSpeed.value;
             _owner.navMeshAgent.SetDestination(_target);
             _owner.navMeshAgent.isStopped = false;

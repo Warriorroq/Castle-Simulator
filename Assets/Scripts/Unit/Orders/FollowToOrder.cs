@@ -15,7 +15,7 @@ namespace UnitSpace.Orders
         public override void SetUnitOwner(Unit owner)
         {
             base.SetUnitOwner(owner);
-            _iteractDistance = owner.attributes.GetOrCreateAttribute<IteractDistance>();
+            _iteractDistance = owner.unitAttributes.GetOrCreateAttribute<IteractDistance>();
         }
         public override void EndOrder()
         {
@@ -32,7 +32,7 @@ namespace UnitSpace.Orders
                 return;
             }
             _owner.navMeshAgent.SetDestination(_target.position);
-            _ownerSpeed = _owner.attributes.GetOrCreateAttribute<Speed>();
+            _ownerSpeed = _owner.unitAttributes.GetOrCreateAttribute<Speed>();
             _owner.navMeshAgent.speed = _ownerSpeed.value;
             _owner.navMeshAgent.isStopped = false;
         }

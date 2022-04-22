@@ -107,8 +107,6 @@ namespace PlayerCamera
                     TakeUnit(unitClone, Color.green);
                     takeUnits.Invoke(_takedUnits[unitClone.fraction], unitClone.fraction);
                 }
-                //adding a little bit randomless
-                unitClone.attributes.attributes[UnityEngine.Random.Range(0, 3)].LevelUp(UnityEngine.Random.Range(0, 3));
             }
         }
         private void Start()

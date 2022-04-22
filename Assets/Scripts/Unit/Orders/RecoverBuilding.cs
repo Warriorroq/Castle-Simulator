@@ -19,7 +19,7 @@ namespace UnitSpace.Orders
         public override void StartOrder()
         {
             var vector = _building.transform.position - _owner.transform.position;
-            var iteractDistance = _owner.attributes.GetOrCreateAttribute<IteractDistance>();
+            var iteractDistance = _owner.unitAttributes.GetOrCreateAttribute<IteractDistance>();
             if (vector.sqrMagnitude > iteractDistance.value)
             {
                 _owner.unitOrders.AddToStart(new MoveToOrder(_building.transform.position));

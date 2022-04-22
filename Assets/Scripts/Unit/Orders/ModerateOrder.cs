@@ -29,10 +29,10 @@ namespace UnitSpace.Orders
         {
             base.SetUnitOwner(owner);
             _owner = owner;
-            _sensitivity = _owner.attributes.GetOrCreateAttribute<Sensitivity>();
-            _strenght = _owner.attributes.GetOrCreateAttribute<Strenght>();
-            _iteractDistance = owner.attributes.GetOrCreateAttribute<IteractDistance>();
-            _speed = _owner.attributes.GetOrCreateAttribute<Speed>();
+            _sensitivity = _owner.unitAttributes.GetOrCreateAttribute<Sensitivity>();
+            _strenght = _owner.unitAttributes.GetOrCreateAttribute<Strenght>();
+            _iteractDistance = owner.unitAttributes.GetOrCreateAttribute<IteractDistance>();
+            _speed = _owner.unitAttributes.GetOrCreateAttribute<Speed>();
         }
 
         public override void StartOrder()

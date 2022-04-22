@@ -12,7 +12,7 @@ namespace UnitSpace.Orders
         {
             base.SetUnitOwner(owner);
             _healthComponent = _owner.healthComponent;
-            _recovery = _owner.attributes.GetOrCreateAttribute<Recovery>();
+            _recovery = _owner.unitAttributes.GetOrCreateAttribute<Recovery>();
         }
         protected override void OnUpdateOrder(){
             if (_timer > 0.5f && !_healthComponent.HealthIsFullHealed)

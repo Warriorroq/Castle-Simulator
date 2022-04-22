@@ -13,7 +13,7 @@ public class LoadParamsToUnit : MonoBehaviour
         if (_load)
         {
             for(int i = 0; i< _load.Count; i++)
-                _owner.attributes[_load[i].name]?
+                _owner.unitAttributes[_load[i].name]?
                       .LoadAttribute(_load[i]);
         }
     }

@@ -19,8 +19,8 @@ namespace UnitSpace.Orders
         public override void SetUnitOwner(Unit owner)
         {
             base.SetUnitOwner(owner);
-            _strenght = owner.attributes.GetOrCreateAttribute<Strenght>();
-            _iteractDistance = owner.attributes.GetOrCreateAttribute<IteractDistance>();
+            _strenght = owner.unitAttributes.GetOrCreateAttribute<Strenght>();
+            _iteractDistance = owner.unitAttributes.GetOrCreateAttribute<IteractDistance>();
         } 
         protected override void OnUpdateOrder()
         {
