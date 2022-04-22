@@ -5,6 +5,7 @@ namespace PlayerCamera
     public class MiniMapCamera : MonoBehaviour
     {
         [SerializeField] private Transform _FollowToTransform;
+        [SerializeField] private Vector3 _OffSet;
         private void Awake()
         {
             if (_FollowToTransform is null)
@@ -14,7 +15,7 @@ namespace PlayerCamera
         {
             if(!(_FollowToTransform is null))
             {
-                transform.position = _FollowToTransform.position;
+                transform.position = _FollowToTransform.position + _OffSet;
             }
             else
             {
