@@ -1,3 +1,5 @@
+using UnitSpace.Enums;
+
 namespace UnitSpace.Attributes
 {
     public class Health : Attribute
@@ -19,7 +21,9 @@ namespace UnitSpace.Attributes
         public void Heal(float Amount)
         {
             if (!IsOverHealed)
+            {
                 currentHp += Amount;
+            }
         }
         public override string ToString()
         {

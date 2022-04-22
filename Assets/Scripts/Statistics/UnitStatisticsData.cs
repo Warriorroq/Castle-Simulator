@@ -3,8 +3,8 @@ public class UnitStatisticsData
 {
     public RecordStatistics.action action;
     public UnitType type;
-    public object value;
-    public UnitStatisticsData(RecordStatistics.action action, UnitType type, object value)
+    public int value;
+    public UnitStatisticsData(RecordStatistics.action action, UnitType type, int value)
     {
         this.action = action;
         this.type = type;

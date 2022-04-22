@@ -107,10 +107,13 @@ namespace PlayerCamera
                     TakeUnit(unitClone, Color.green);
                     takeUnits.Invoke(_takedUnits[unitClone.fraction], unitClone.fraction);
                 }
+                //adding a little bit randomless
+                unitClone.attributes.attributes[UnityEngine.Random.Range(0, 3)].LevelUp(UnityEngine.Random.Range(0, 3));
             }
         }
         private void Start()
         {
+            var a = RecordStatistics.Instance;
             _takedUnits = new Dictionary<UnitType, List<Unit>>();
             foreach (UnitType type in Enum.GetValues(typeof(UnitType)))
                 _takedUnits.Add(type, new List<Unit>());
@@ -134,6 +137,8 @@ namespace PlayerCamera
                 CreateUnit(_cannonClone);
             if (Input.GetKeyDown(KeyCode.M))
                 CreateUnit(_mineClone);
+            if (Input.GetKeyDown(KeyCode.R))
+                RecordStatistics.Instance.StartRecording();
         }
         private void TakeUnit(Unit unit, Color selectorColor)
         {

@@ -22,7 +22,7 @@ public class HpHealStatisticHandler : IDataStatisticHandler
     public int GetSupressedDamage()
     {
         var damageHandler = RecordStatistics.Instance.GetService<DamageDealStatisticsHandler>(_unitEnemyType);
-        return GetTotalHealing() - damageHandler.GetAverageDamagePerHit();
+        return GetTotalHealing() - damageHandler.GetTotalDamagePerHit();
     }
     public void Clear()
     {

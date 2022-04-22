@@ -36,6 +36,8 @@ public class HealthComponent : MonoBehaviour
             Invoke(nameof(Reload), _reloadTime);
             giveIteractData?.Invoke(data);
             target.healthComponent.TakeDamage(data);
+            if (RecordStatistics.Instance.recordingState is ReadyState.Executing)
+                RecordStatistics.Instance.WriteStatistic(new UnitStatisticsData(RecordStatistics.action.DamageDealed, _owner.fraction, (int)data.damage));
         }
     }
     public void GiveDamage(Unit target, IteractData iteractData)
@@ -49,7 +51,9 @@ public class HealthComponent : MonoBehaviour
         }
     }
     public void HealthHeal(float Amount) { 
-        _health.Heal(Amount); 
+        _health.Heal(Amount);
+        if (RecordStatistics.Instance.recordingState is ReadyState.Executing)
+            RecordStatistics.Instance.WriteStatistic(new UnitStatisticsData(RecordStatistics.action.DamageDealed, _owner.fraction, (int)Amount));
     }
     private void TakeDamageWithHealthAttribute(float Amount)
     {
@@ -90,7 +94,6 @@ public class HealthComponent : MonoBehaviour
     private void ReduceDamageFromHealth(IteractData data)
     {
         TakeDamageWithHealthAttribute(data.damage);
-        Debug.Log($"{name} taked damage {data.damage} hp is {_health.currentHp}");
     }
     private void Reload()
         => attackState = ReadyState.Ready;
