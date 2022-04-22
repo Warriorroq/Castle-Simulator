@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12207538, g: 0.246068, b: 0.35145617, a: 1}
+  m_IndirectSpecularColor: {r: 0.14583695, g: 0.29669487, b: 0.4228349, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2964,6 +2964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 806082571}
   - component: {fileID: 806082570}
+  - component: {fileID: 806082572}
   - component: {fileID: 806082569}
   - component: {fileID: 806082568}
   - component: {fileID: 806082567}
@@ -3144,6 +3145,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 47.71, y: 1.4, z: 0}
+--- !u!114 &806082572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806082563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc6b492cfb16f3488096046260e8e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordingState: 0
+  startRecording:
+    m_PersistentCalls:
+      m_Calls: []
+  stopRecording:
+    m_PersistentCalls:
+      m_Calls: []
+  _recordingTime: 40
 --- !u!1 &821531029
 GameObject:
   m_ObjectHideFlags: 0

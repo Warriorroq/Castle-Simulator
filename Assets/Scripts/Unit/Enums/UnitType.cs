@@ -1,6 +1,6 @@
 namespace UnitSpace.Enums
 {
-    public enum UnitType
+    public enum UnitType : int
     {
         None = 0,
         Void = 1,

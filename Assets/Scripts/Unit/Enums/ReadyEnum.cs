@@ -3,6 +3,8 @@ namespace UnitSpace.Enums
     public enum ReadyState
     {
         NonReady = 0,
-        Ready = 1
+        Executing = 1,
+        Ready = 2,
+        Stop = 3
     }
 }
