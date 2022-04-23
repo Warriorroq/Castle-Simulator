@@ -4,17 +4,17 @@ using System.Linq;
 
 public class DamageDealStatisticsHandler : IDataStatisticHandler
 {
-    private List<int> _givenDamage;
+    private List<float> _givenDamage;
     public DamageDealStatisticsHandler()
     {
-        _givenDamage = new List<int>();
+        _givenDamage = new List<float>();
     }
     public void WriteStatistic(UnitStatisticsData unitData) {
-        _givenDamage.Add((int)unitData.value);
+        _givenDamage.Add((float)unitData.value);
     }
-    public int GetTotalDamagePerHit()
+    public float GetTotalDamagePerHit()
         => _givenDamage.Sum();
-    public int GetAverageDamagePerHit()
+    public float GetAverageDamagePerHit()
     {
         var devider = _givenDamage.Count();
         if(devider == 0)

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <string>2</string>
+  <string>DamageDealStatisticsHandler, total:51, average 3</string>
+  <string>HpHealStatisticHandler, total:0 supressed -12</string>
+  <string>1</string>
+  <string>DamageDealStatisticsHandler, total:12, average 4</string>
+  <string>HpHealStatisticHandler, total:0 supressed -51</string>
+</ArrayOfString>

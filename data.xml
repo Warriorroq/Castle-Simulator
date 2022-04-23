@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <string>DamageDealStatisticsHandler, total:0, average 0</string>
-  <string>HpHealStatisticHandler, total:0 supressed 0</string>
-  <string>DamageDealStatisticsHandler, total:0, average 0</string>
-  <string>HpHealStatisticHandler, total:0 supressed 0</string>
-</ArrayOfString>

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
+using UnitSpace;
+using System;
 public class RecordStatistics : Singletone<RecordStatistics>, IDataStatisticHandler
 {
     public ReadyState recordingState; 
@@ -20,14 +22,18 @@ public class RecordStatistics : Singletone<RecordStatistics>, IDataStatisticHand
     }
     public void StartRecording()
     {
+        if (recordingState is ReadyState.Executing)
+            return;
         startRecording.Invoke();
         recordingState = ReadyState.Executing;
         Invoke(nameof(StopRecording), _recordingTime);
     }
-    public void WriteStatistic(UnitStatisticsData unitData) {
-        
-        if(_servicies.ContainsKey((int)unitData.type))
-            _servicies[(int)unitData.type][(int)unitData.action].WriteStatistic(unitData);
+    public void WriteStatistic(Unit owner, action statisticType, object value)
+    {
+        if (!(recordingState is ReadyState.Executing))
+            return;
+        var stats = new UnitStatisticsData(statisticType, owner.fraction, value);
+        WriteStatistic(stats);
     }
     public TService GetService<TService>(UnitType unitType) where TService : IDataStatisticHandler
     {
@@ -35,6 +41,11 @@ public class RecordStatistics : Singletone<RecordStatistics>, IDataStatisticHand
             if(serviceHandler.GetType() == typeof(TService))
                 return (TService)serviceHandler;
         throw new System.Exception($"{GetType()}: Does not contain such service as {typeof(TService)}");
+    }
+    public void WriteStatistic(UnitStatisticsData unitData)
+    {
+        if (_servicies.ContainsKey((int)unitData.type))
+            _servicies[(int)unitData.type][(int)unitData.action].WriteStatistic(unitData);
     }
     private void CreateServicies(UnitType unitFriendlyType, UnitType enemyType)
     {
@@ -46,14 +57,16 @@ public class RecordStatistics : Singletone<RecordStatistics>, IDataStatisticHand
     private void SaveStatistics()
     {
         List<string> dataToWrite = new List<string>();
-        foreach (var unitTypeDictionary in _servicies.Values)
+        foreach (var unitTypeDictionaryKey in _servicies.Keys)
         {
-            foreach (var statisticsHandler in unitTypeDictionary.Values)
+            dataToWrite.Add(unitTypeDictionaryKey.ToString());
+            foreach (var statisticsHandler in _servicies[unitTypeDictionaryKey].Values)
             {
                 dataToWrite.Add(statisticsHandler.ToString());
             }
         }
-        SerializeObject(dataToWrite, "data.xml");
+        var fileName = $"data{_recordingTime}s {DateTime.Now.ToString("yyyy_MM_dd_T_HH_mm_ss")}.xml";
+        SerializeObject(dataToWrite, fileName);
     }
     public void SerializeObject(List<string> list, string fileName)
     {
